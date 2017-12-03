@@ -11,8 +11,6 @@ import com.dimchel.footballobserver.di.module.NetworkModule
 
 class Application : Application() {
 
-    private val baseUrl = "http://api.football-data.org/v1/"
-
     companion object {
         lateinit var instance: com.dimchel.footballobserver.Application
     }
@@ -28,14 +26,18 @@ class Application : Application() {
         appComponent = initAppComponent()
     }
 
+    // ===========================================================
+    // di
+    // ===========================================================
+
     private fun initAppComponent(): AppComponent {
         return DaggerAppComponent.builder()
                 .appModule(AppModule(this))
-                .networkModule(NetworkModule(baseUrl))
+                .networkModule(NetworkModule(AppConstants.BASE_API_URL))
                 .build()
     }
 
-    public fun initCompetitionComponent(): CompetitionComponent {
+    fun initCompetitionComponent(): CompetitionComponent {
         val component = appComponent.competitionComponent(CompetitionsModule())
 
         competitionComponent = component
@@ -43,7 +45,7 @@ class Application : Application() {
         return component
     }
 
-    public fun destroyCompetitionComponent() {
+    fun destroyCompetitionComponent() {
         competitionComponent = null
     }
 
