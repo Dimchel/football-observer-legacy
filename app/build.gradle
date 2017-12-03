@@ -25,7 +25,14 @@ android {
     }
 }
 
+kapt {
+    generateStubs = true
+}
+
 def support_lib_ver = "26.1.0"
+def retrofit_ver = "2.3.0"
+def dagger_ver = "2.13"
+def moxy_ver = "1.5.3"
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
@@ -36,4 +43,20 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
 
     implementation "com.android.support:appcompat-v7:$support_lib_ver"
+    implementation "com.android.support:recyclerview-v7:$support_lib_ver"
+    implementation "com.android.support:design:$support_lib_ver"
+
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_ver"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit_ver"
+
+    implementation "com.google.dagger:dagger:$dagger_ver"
+    annotationProcessor "com.google.dagger:dagger-compiler:$dagger_ver"
+    kapt "com.google.dagger:dagger-compiler:$dagger_ver"
+    kapt "com.google.dagger:dagger-android-processor:$dagger_ver"
+
+    implementation "com.arello-mobile:moxy:$moxy_ver"
+    implementation "com.arello-mobile:moxy-app-compat:$moxy_ver"
+    kapt "com.arello-mobile:moxy-compiler:$moxy_ver"
+    annotationProcessor "com.arello-mobile:moxy-compiler:$moxy_ver"
+
 }
