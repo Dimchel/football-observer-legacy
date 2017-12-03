@@ -6,13 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import com.dimchel.footballobserver.R
 import com.dimchel.footballobserver.common.simpleclasses.SimpleOnItemSelectedListener
-import com.dimchel.footballobserver.data.networks.models.responses.CompetitionScheme
+import com.dimchel.footballobserver.data.repos.competitions.CompetitionModel
 import kotlinx.android.synthetic.main.item_competition.view.*
 
 
-class CompetitionsRvAdapter(private val listener: SimpleOnItemSelectedListener<CompetitionScheme>) : RecyclerView.Adapter<CompetitionsRvAdapter.ViewHolder>() {
+class CompetitionsRvAdapter(private val listener: SimpleOnItemSelectedListener<CompetitionModel>) : RecyclerView.Adapter<CompetitionsRvAdapter.ViewHolder>() {
 
-    var competitionsList: List<CompetitionScheme> = ArrayList()
+    var competitionsList: List<CompetitionModel> = ArrayList()
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent!!.context).inflate(R.layout.item_competition, parent, false)
@@ -35,7 +35,7 @@ class CompetitionsRvAdapter(private val listener: SimpleOnItemSelectedListener<C
         return competitionsList.size
     }
 
-    fun setData(competitionsList: List<CompetitionScheme>) {
+    fun setData(competitionsList: List<CompetitionModel>) {
         this.competitionsList = competitionsList
 
         this.notifyDataSetChanged()

@@ -1,5 +1,6 @@
 package com.dimchel.footballobserver.di.module
 
+import com.dimchel.footballobserver.data.mappers.CompetitionMapper
 import com.dimchel.footballobserver.data.networks.ApiServiceProvider
 import com.dimchel.footballobserver.data.repos.competitions.CompetitionsRepo
 import com.dimchel.footballobserver.data.repos.competitions.CompetitionsRepoImpl
@@ -13,8 +14,14 @@ class CompetitionsModule {
 
     @CompetitionScope
     @Provides
-    fun provideCompetitionRepo(apiProvider: ApiServiceProvider): CompetitionsRepo {
-        return CompetitionsRepoImpl(apiProvider)
+    fun provideCompetitionMapper(): CompetitionMapper {
+        return CompetitionMapper()
+    }
+
+    @CompetitionScope
+    @Provides
+    fun provideCompetitionRepo(apiProvider: ApiServiceProvider, mapper: CompetitionMapper): CompetitionsRepo {
+        return CompetitionsRepoImpl(apiProvider, mapper)
     }
 
 }

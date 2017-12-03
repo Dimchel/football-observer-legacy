@@ -3,27 +3,37 @@ package com.dimchel.footballobserver.presentation.competitions
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
 import com.dimchel.footballobserver.Application
-import com.dimchel.footballobserver.data.networks.NetworkError
-import com.dimchel.footballobserver.data.networks.models.responses.CompetitionScheme
-import com.dimchel.footballobserver.data.repos.OnRepoDataListener
+import com.dimchel.footballobserver.data.repos.competitions.CompetitionModel
 import com.dimchel.footballobserver.data.repos.competitions.CompetitionsRepo
+import io.reactivex.SingleObserver
+import io.reactivex.disposables.Disposable
 import javax.inject.Inject
 
 
 @InjectViewState
-class CompetitionPresenter: MvpPresenter<CompetitionsView>(), OnRepoDataListener<List<CompetitionScheme>> {
+class CompetitionPresenter:
+        MvpPresenter<CompetitionsView>(),
+        SingleObserver<List<CompetitionModel>> {
 
     @Inject
     lateinit var repo: CompetitionsRepo
 
+    private var repoDisposable: Disposable? = null
+
     init {
         Application.instance.initCompetitionComponent().inject(this)
+    }
 
-        repo.getCompetitionsList(this)
+    override fun attachView(view: CompetitionsView?) {
+        super.attachView(view)
+
+        repo.getCompetitionsList().subscribe(this)
     }
 
     override fun onDestroy() {
         Application.instance.destroyCompetitionComponent()
+
+        repoDisposable?.dispose()
 
         super.onDestroy()
     }
@@ -32,20 +42,23 @@ class CompetitionPresenter: MvpPresenter<CompetitionsView>(), OnRepoDataListener
     // CompetitionPresenter
     // ===========================================================
 
-    fun onCompetitionSelected(competitionScheme: CompetitionScheme) {
+    fun onCompetitionSelected(competitionScheme: CompetitionModel) {
 
     }
 
     // ===========================================================
-    // OnRepoDataListener
+    // SingleObserver
     // ===========================================================
 
-    override fun onResult(result: List<CompetitionScheme>) {
-        viewState.showCompetitionsList(result)
+    override fun onSuccess(data: List<CompetitionModel>) {
+        viewState.showCompetitionsList(data)
     }
 
-    override fun onFailure(error: NetworkError) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun onError(e: Throwable) {
+
     }
 
+    override fun onSubscribe(d: Disposable) {
+        this.repoDisposable = d
+    }
 }

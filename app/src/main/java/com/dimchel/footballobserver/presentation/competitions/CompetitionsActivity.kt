@@ -7,14 +7,14 @@ import com.arellomobile.mvp.MvpAppCompatActivity
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.dimchel.footballobserver.R
 import com.dimchel.footballobserver.common.simpleclasses.SimpleOnItemSelectedListener
-import com.dimchel.footballobserver.data.networks.models.responses.CompetitionScheme
+import com.dimchel.footballobserver.data.repos.competitions.CompetitionModel
 import kotlinx.android.synthetic.main.activity_competitions.*
 
 
 class CompetitionsActivity :
         MvpAppCompatActivity(),
         CompetitionsView,
-        SimpleOnItemSelectedListener<CompetitionScheme> {
+        SimpleOnItemSelectedListener<CompetitionModel> {
 
     @InjectPresenter
     lateinit var presenter: CompetitionPresenter
@@ -49,7 +49,7 @@ class CompetitionsActivity :
     // CompetitionsView
     // ===========================================================
 
-    override fun showCompetitionsList(competitionsList: List<CompetitionScheme>) {
+    override fun showCompetitionsList(competitionsList: List<CompetitionModel>) {
         adapter.setData(competitionsList)
     }
 
@@ -57,7 +57,7 @@ class CompetitionsActivity :
     // SimpleOnItemSelectedListener
     // ===========================================================
 
-    override fun onItemSelected(item: CompetitionScheme) {
+    override fun onItemSelected(item: CompetitionModel) {
         presenter.onCompetitionSelected(item)
     }
 

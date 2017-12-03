@@ -6,6 +6,7 @@ import com.dimchel.footballobserver.data.networks.api.FootballApiService
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
@@ -21,9 +22,17 @@ class NetworkModule(private val baseUrl: String) {
 
     @Provides
     @Singleton
-    fun provideRetrofit(gsonConverterFactory: GsonConverterFactory): Retrofit {
+    fun provideRxCallAdapterFactory(): RxJava2CallAdapterFactory {
+        return RxJava2CallAdapterFactory.create()
+    }
+
+
+    @Provides
+    @Singleton
+    fun provideRetrofit(gsonConverterFactory: GsonConverterFactory, rxJava2CallAdapterFactory: RxJava2CallAdapterFactory): Retrofit {
         return Retrofit.Builder()
                     .addConverterFactory(gsonConverterFactory)
+                    .addCallAdapterFactory(rxJava2CallAdapterFactory)
                     .baseUrl(baseUrl)
                     .build()
     }
