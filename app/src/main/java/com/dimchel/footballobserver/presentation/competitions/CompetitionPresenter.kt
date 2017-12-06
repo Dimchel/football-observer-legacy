@@ -3,8 +3,8 @@ package com.dimchel.footballobserver.presentation.competitions
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
 import com.dimchel.footballobserver.Application
-import com.dimchel.footballobserver.data.repos.competitions.CompetitionModel
-import com.dimchel.footballobserver.data.repos.competitions.CompetitionsRepo
+import com.dimchel.footballobserver.data.repos.competition.CompetitionRepo
+import com.dimchel.footballobserver.data.repos.competition.models.CompetitionModel
 import io.reactivex.SingleObserver
 import io.reactivex.disposables.Disposable
 import javax.inject.Inject
@@ -16,7 +16,7 @@ class CompetitionPresenter:
         SingleObserver<List<CompetitionModel>> {
 
     @Inject
-    lateinit var repo: CompetitionsRepo
+    lateinit var repo: CompetitionRepo
 
     private var repoDisposable: Disposable? = null
 
@@ -31,8 +31,6 @@ class CompetitionPresenter:
     }
 
     override fun onDestroy() {
-        Application.instance.destroyCompetitionComponent()
-
         repoDisposable?.dispose()
 
         super.onDestroy()
@@ -42,8 +40,8 @@ class CompetitionPresenter:
     // CompetitionPresenter
     // ===========================================================
 
-    fun onCompetitionSelected(competitionScheme: CompetitionModel) {
-
+    fun onCompetitionSelected(competitionModel: CompetitionModel) {
+        viewState.showLeagueView(competitionModel.id)
     }
 
     // ===========================================================

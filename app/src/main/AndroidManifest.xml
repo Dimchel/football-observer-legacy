@@ -23,6 +23,7 @@
         </activity>
 
         <activity android:name=".presentation.competitions.CompetitionsActivity"/>
+        <activity android:name=".presentation.league.LeagueActivity"/>
 
     </application>
 

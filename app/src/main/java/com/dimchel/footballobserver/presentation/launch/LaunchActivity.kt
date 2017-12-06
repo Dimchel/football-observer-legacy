@@ -15,6 +15,8 @@ class LaunchActivity : AppCompatActivity() {
 
         val intent = Intent(this, CompetitionsActivity::class.java)
         startActivity(intent)
+
+        finish()
     }
 
 }

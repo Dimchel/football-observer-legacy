@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.dimchel.footballobserver.R
 import com.dimchel.footballobserver.common.simpleclasses.SimpleOnItemSelectedListener
-import com.dimchel.footballobserver.data.repos.competitions.CompetitionModel
+import com.dimchel.footballobserver.data.repos.competition.models.CompetitionModel
 import kotlinx.android.synthetic.main.item_competition.view.*
 
 
