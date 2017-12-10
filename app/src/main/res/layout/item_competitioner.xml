@@ -1,11 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
     android:background="?attr/selectableItemBackground"
-    >
+    android:paddingLeft="@dimen/default_horizontal_margin"
+    android:paddingRight="@dimen/default_horizontal_margin">
+
+    <android.support.v7.widget.AppCompatImageView
+        android:id="@+id/item_competitioner_icon_imageview"
+        android:layout_width="@dimen/team_icon_size"
+        android:layout_height="@dimen/team_icon_size"
+        app:srcCompat="@drawable/icon_team_new"/>
 
     <TextView
         android:id="@+id/item_competitioner_name_textview"

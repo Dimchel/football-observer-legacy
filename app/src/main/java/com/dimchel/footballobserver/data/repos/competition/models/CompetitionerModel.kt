@@ -6,7 +6,7 @@ data class CompetitionerModel(
         var teamName: String,
         var teamId: Int,
         var playedGames: Int,
-        var crestURI: String,
+        var crestURI: String?,
         var points: Int,
         var goals: Int,
         var goalsAgainst: Int,

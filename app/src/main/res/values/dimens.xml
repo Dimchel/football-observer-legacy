@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="default_horizontal_margin">16dp</dimen>
+    <dimen name="default_vertical_margin">16dp</dimen>
+    <dimen name="default_half_horizontal_margin">8dp</dimen>
+    <dimen name="default_half_vertical_margin">8dp</dimen>
+    <dimen name="default_quoter_horizontal_margin">4dp</dimen>
+    <dimen name="default_quoter_vertical_margin">4dp</dimen>
+
+    <dimen name="text_size_large">16sp</dimen>
+    <dimen name="text_size_normal">14sp</dimen>
+    <dimen name="text_size_small">12sp</dimen>
+
+    <dimen name="team_icon_size">40dp</dimen>
+
+</resources>

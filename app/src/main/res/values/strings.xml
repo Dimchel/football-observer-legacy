@@ -1,3 +1,9 @@
 <resources>
+
     <string name="app_name">Football Observer</string>
+
+    <string name="competition_matchday">Matchday:</string>
+    <string name="competition_teams">Teams:</string>
+    <string name="competition_updated">Last updated:</string>
+
 </resources>

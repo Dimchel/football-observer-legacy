@@ -12,7 +12,7 @@ import kotlinx.android.synthetic.main.item_competition.view.*
 
 class CompetitionsRvAdapter(private val listener: SimpleOnItemSelectedListener<CompetitionModel>) : RecyclerView.Adapter<CompetitionsRvAdapter.ViewHolder>() {
 
-    var competitionsList: List<CompetitionModel> = ArrayList()
+    private var competitionsList: List<CompetitionModel> = ArrayList()
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent!!.context).inflate(R.layout.item_competition, parent, false)
@@ -21,14 +21,20 @@ class CompetitionsRvAdapter(private val listener: SimpleOnItemSelectedListener<C
     }
 
     override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
-         with(competitionsList[position]) {
 
-             holder!!.nameTextView.text = let { caption }
+        val context = holder!!.itemView.context
 
-             holder.itemView.setOnClickListener {
-                 listener.onItemSelected(let { this })
-             }
-         }
+        with(competitionsList[position]) {
+
+            holder.nameTextView.text = let { caption }
+            holder.matchdayTextView.text = let { currentMatchday.toString() }
+            holder.teamTextView.text = let { numberOfTeams.toString() }
+            holder.updatedTextView.text = let { lastUpdated }
+
+            holder.itemView.setOnClickListener {
+             listener.onItemSelected(let { this })
+            }
+        }
     }
 
     override fun getItemCount(): Int {
@@ -42,8 +48,10 @@ class CompetitionsRvAdapter(private val listener: SimpleOnItemSelectedListener<C
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
-        val nameTextView = itemView.item_competition_name_textview!!
+        val nameTextView = itemView.item_competition_name_textview
+        val updatedTextView = itemView.item_competition_updated_textview
+        val teamTextView = itemView.item_competition_teams_textview
+        val matchdayTextView = itemView.item_competition_matchday_textview
     }
 
 }
