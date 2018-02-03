@@ -10,7 +10,6 @@ import com.arellomobile.mvp.MvpAppCompatActivity
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.dimchel.footballobserver.R
-import com.dimchel.footballobserver.common.Logger
 import com.dimchel.footballobserver.common.simpleclasses.SimpleOnItemSelectedListener
 import com.dimchel.footballobserver.data.managers.IconManager
 import com.dimchel.footballobserver.data.repos.competition.models.CompetitionerModel
@@ -88,10 +87,6 @@ class LeagueActivity : MvpAppCompatActivity(), LeagueView, SimpleOnItemSelectedL
     }
 
     override fun showStandingList(competitionersList: List<CompetitionerModel>) {
-        for (competitioner in competitionersList) {
-            Logger.log("123", "name: " + competitioner.teamName)
-            Logger.log("123", "img: " + competitioner.crestURI)
-        }
         adapter.setData(competitionersList)
 
         leagueRecyclerView.visibility = View.VISIBLE

@@ -1,6 +1,7 @@
 package com.dimchel.footballobserver.di.component
 
 import com.dimchel.footballobserver.di.module.AppModule
+import com.dimchel.footballobserver.di.module.ClubModule
 import com.dimchel.footballobserver.di.module.CompetitionsModule
 import com.dimchel.footballobserver.di.module.NetworkModule
 import dagger.Component
@@ -12,5 +13,6 @@ import javax.inject.Singleton
 interface AppComponent {
 
     fun competitionComponent(competitionsModule: CompetitionsModule): CompetitionComponent
+    fun clubComponent(clubModule: ClubModule): ClubComponent
 
 }

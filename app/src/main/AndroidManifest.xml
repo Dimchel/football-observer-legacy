@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <!--activities-->
+        <!-- activities -->
         <activity android:name=".presentation.launch.LaunchActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,9 +21,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".presentation.competitions.CompetitionsActivity"/>
-        <activity android:name=".presentation.league.LeagueActivity"/>
+        <activity android:name=".presentation.competitions.CompetitionsActivity" />
+        <activity android:name=".presentation.league.LeagueActivity" />
+        <activity android:name=".presentation.club.ClubActivity" />
 
     </application>
 

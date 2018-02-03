@@ -5,6 +5,11 @@
     <color name="colorPrimaryDark">#222222</color>
     <color name="colorAccent">#00b2b9</color>
 
-    <color name="colorBackground">#f6f7f9</color>
+    <color name="color_background">#f6f7f9</color>
+
+    <color name="colol_text_dark">#111111</color>
+    <color name="color_club_winner">#e0e0e0</color>
+    <color name="color_club_cl">#e8e8e8</color>
+    <color name="color_club_ec">#eeeeee</color>
 
 </resources>

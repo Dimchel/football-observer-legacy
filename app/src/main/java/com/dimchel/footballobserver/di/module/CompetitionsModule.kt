@@ -1,5 +1,6 @@
 package com.dimchel.footballobserver.di.module
 
+import com.dimchel.footballobserver.common.Logger
 import com.dimchel.footballobserver.data.mappers.CompetitionMapper
 import com.dimchel.footballobserver.data.networks.ApiServiceProvider
 import com.dimchel.footballobserver.data.repos.competition.CompetitionRepo

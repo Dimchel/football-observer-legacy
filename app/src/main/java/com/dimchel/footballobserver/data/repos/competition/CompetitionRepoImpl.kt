@@ -7,9 +7,13 @@ import com.dimchel.footballobserver.data.repos.competition.models.LeagueModel
 import io.reactivex.Single
 
 
-class CompetitionRepoImpl(private val apiProvider: ApiServiceProvider, private val mapper: CompetitionMapper): CompetitionRepo {
+class CompetitionRepoImpl(
+        private val apiProvider: ApiServiceProvider,
+        private val mapper: CompetitionMapper)
+    : CompetitionRepo {
 
     private var competitionsCashList: List<CompetitionModel> = ArrayList()
+    private var leagueMap: HashMap<Long, LeagueModel> = HashMap()
 
     override fun getCompetitionsList(): Single<List<CompetitionModel>> {
         return if (competitionsCashList.isEmpty()) {
@@ -27,10 +31,18 @@ class CompetitionRepoImpl(private val apiProvider: ApiServiceProvider, private v
     }
 
     override fun getLeagueTable(competitionId: Long): Single<LeagueModel> {
-        return apiProvider.fetchLeague(competitionId)
-                .map {
-                    scheme -> mapper.mapLeagueSchemeToLeagueModel(scheme)
-                }
+        return if (!leagueMap.containsKey(competitionId)) {
+            apiProvider.fetchLeague(competitionId)
+                    .map {
+                        scheme -> mapper.mapLeagueSchemeToLeagueModel(scheme)
+                    }.doOnSuccess {
+                        list -> run {
+                            leagueMap.put(competitionId, list)
+                        }
+                    }
+        } else {
+            Single.just(leagueMap[competitionId])
+        }
     }
 
 }

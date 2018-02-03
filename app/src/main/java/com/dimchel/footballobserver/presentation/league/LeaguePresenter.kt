@@ -3,7 +3,6 @@ package com.dimchel.footballobserver.presentation.league
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
 import com.dimchel.footballobserver.Application
-import com.dimchel.footballobserver.common.Logger
 import com.dimchel.footballobserver.data.repos.competition.CompetitionRepo
 import com.dimchel.footballobserver.data.repos.competition.models.LeagueModel
 import io.reactivex.SingleObserver
@@ -12,7 +11,7 @@ import javax.inject.Inject
 
 
 @InjectViewState
-class LeaguePresenter(competitionId: Long) :
+class LeaguePresenter(private val competitionId: Long) :
         MvpPresenter<LeagueView>(),
         SingleObserver<LeagueModel> {
 
@@ -23,14 +22,18 @@ class LeaguePresenter(competitionId: Long) :
 
     init {
         Application.instance.initCompetitionComponent().inject(this)
-
-        repo.getLeagueTable(competitionId).subscribe(this)
     }
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
 
         viewState.hideStandingList()
+    }
+
+    override fun attachView(view: LeagueView?) {
+        super.attachView(view)
+
+        repo.getLeagueTable(competitionId).subscribe(this)
     }
 
     override fun onDestroy() {
@@ -44,7 +47,6 @@ class LeaguePresenter(competitionId: Long) :
     // ===========================================================
 
     override fun onSuccess(model: LeagueModel) {
-        Logger.log("123", "onSuccess: " + model.standing.size)
         viewState.updateTitleView(model.leagueCaption)
         viewState.updateMatchdayView(model.matchday)
 
@@ -52,11 +54,10 @@ class LeaguePresenter(competitionId: Long) :
     }
 
     override fun onError(t: Throwable) {
-        Logger.log("123", "onError", t)
+
     }
 
     override fun onSubscribe(d: Disposable) {
-        Logger.log("123", "onSubscribe")
         disposable = d
     }
 
