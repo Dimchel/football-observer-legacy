@@ -2,11 +2,9 @@ package com.dimchel.footballobserver
 
 import android.app.Application
 import com.dimchel.footballobserver.di.component.AppComponent
-import com.dimchel.footballobserver.di.component.ClubComponent
 import com.dimchel.footballobserver.di.component.CompetitionComponent
 import com.dimchel.footballobserver.di.component.DaggerAppComponent
 import com.dimchel.footballobserver.di.module.AppModule
-import com.dimchel.footballobserver.di.module.ClubModule
 import com.dimchel.footballobserver.di.module.CompetitionsModule
 import com.dimchel.footballobserver.di.module.NetworkModule
 
@@ -20,7 +18,7 @@ class Application : Application() {
     private lateinit var appComponent: AppComponent
 
     private var competitionComponent: CompetitionComponent? = null
-    private var clubComponent: ClubComponent? = null
+//    private var clubComponent: ClubComponent? = null
 
     override fun onCreate() {
         super.onCreate()
@@ -55,18 +53,18 @@ class Application : Application() {
         competitionComponent = null
     }
 
-    fun initClubComponent(): ClubComponent {
-        if (clubComponent == null) {
-            val component = appComponent.clubComponent(ClubModule())
+//    fun initClubComponent(): ClubComponent {
+//        if (clubComponent == null) {
+//            val component = appComponent.clubComponent(ClubModule())
+//
+//            clubComponent = component
+//        }
+//
+//        return clubComponent as ClubComponent
+//    }
 
-            clubComponent = component
-        }
-
-        return clubComponent as ClubComponent
-    }
-
-    fun destroyClubComponent() {
-        clubComponent = null
-    }
+//    fun destroyClubComponent() {
+//        clubComponent = null
+//    }
 
 }
