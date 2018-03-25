@@ -28,21 +28,21 @@ class LeagueRvAdapter(
 
     private var competitionersList: List<CompetitionerModel> = ArrayList()
 
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): RecyclerView.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val view: View
 
         return if (viewType == ITEM_HEADER) {
-            view = LayoutInflater.from(parent!!.context).inflate(R.layout.item_league_header, parent, false)
+            view = LayoutInflater.from(parent.context).inflate(R.layout.item_league_header, parent, false)
 
             HeaderViewHolder(view)
         } else {
-            view = LayoutInflater.from(parent!!.context).inflate(R.layout.item_league, parent, false)
+            view = LayoutInflater.from(parent.context).inflate(R.layout.item_league, parent, false)
 
             ViewHolder(view)
         }
     }
 
-    override fun onBindViewHolder(viewHolder: RecyclerView.ViewHolder?, position: Int) {
+    override fun onBindViewHolder(viewHolder: RecyclerView.ViewHolder, position: Int) {
         if (getItemViewType(position) == ITEM_COMPETITIONER) {
             val holder = viewHolder as ViewHolder
 

@@ -4,6 +4,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
+import android.view.View
 import com.arellomobile.mvp.MvpAppCompatActivity
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.dimchel.footballobserver.R
@@ -11,13 +13,15 @@ import com.dimchel.footballobserver.common.simpleclasses.SimpleOnItemSelectedLis
 import com.dimchel.footballobserver.data.repos.competition.models.CompetitionModel
 import com.dimchel.footballobserver.presentation.league.LeagueActivity
 import com.dimchel.footballobserver.presentation.league.LeagueActivity.Companion.BUNDLE_COMPETITION_ID
-import kotlinx.android.synthetic.main.activity_competitions.*
 
 
 class CompetitionsActivity :
         MvpAppCompatActivity(),
         CompetitionsView,
         SimpleOnItemSelectedListener<CompetitionModel> {
+
+    private lateinit var progressView: View
+    private lateinit var competitionsRecyclerView: RecyclerView
 
     @InjectPresenter
     lateinit var presenter: CompetitionPresenter
@@ -33,11 +37,13 @@ class CompetitionsActivity :
     }
 
     private fun initViews() {
-        initRecycler()
+        progressView = findViewById<View>(R.id.competitions_progressbar)
+
+        initRecyclerView()
     }
 
-    private fun initRecycler() {
-        val competitionsRecyclerView = competitions_recyclerview
+    private fun initRecyclerView() {
+        competitionsRecyclerView = findViewById<RecyclerView>(R.id.competitions_recyclerview)
 
         competitionsRecyclerView.layoutManager = LinearLayoutManager(this)
 
@@ -52,8 +58,24 @@ class CompetitionsActivity :
     // CompetitionsView
     // ===========================================================
 
-    override fun showCompetitionsList(competitionsList: List<CompetitionModel>) {
+    override fun showCompetitionsListView(show: Boolean) {
+        if (show) {
+            competitionsRecyclerView.visibility = View.VISIBLE
+        } else {
+            competitionsRecyclerView.visibility = View.INVISIBLE
+        }
+    }
+
+    override fun updateCompetitionsListView(competitionsList: List<CompetitionModel>) {
         adapter.setData(competitionsList)
+    }
+
+    override fun showProgress(show: Boolean) {
+        if (show) {
+            progressView.visibility = View.VISIBLE
+        } else {
+            progressView.visibility = View.INVISIBLE
+        }
     }
 
     override fun showLeagueView(competitionId: Long) {

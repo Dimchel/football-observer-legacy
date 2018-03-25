@@ -11,9 +11,12 @@ import com.dimchel.footballobserver.data.repos.competition.models.CompetitionMod
 interface CompetitionsView: MvpView{
 
     @StateStrategyType(SkipStrategy::class)
-    fun showCompetitionsList(competitionsList: List<CompetitionModel>)
+    fun showCompetitionsListView(show: Boolean)
+    fun updateCompetitionsListView(competitionsList: List<CompetitionModel>)
 
     @StateStrategyType(SkipStrategy::class)
     fun showLeagueView(competitionId: Long)
+
+    fun showProgress(show: Boolean)
 
 }

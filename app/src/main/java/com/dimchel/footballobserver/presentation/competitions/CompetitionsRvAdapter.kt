@@ -10,20 +10,18 @@ import com.dimchel.footballobserver.data.repos.competition.models.CompetitionMod
 import kotlinx.android.synthetic.main.item_competition.view.*
 
 
-class CompetitionsRvAdapter(private val listener: SimpleOnItemSelectedListener<CompetitionModel>) : RecyclerView.Adapter<CompetitionsRvAdapter.ViewHolder>() {
+class CompetitionsRvAdapter(private val listener: SimpleOnItemSelectedListener<CompetitionModel>)
+    : RecyclerView.Adapter<CompetitionsRvAdapter.ViewHolder>() {
 
     private var competitionsList: List<CompetitionModel> = ArrayList()
 
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent!!.context).inflate(R.layout.item_competition, parent, false)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_competition, parent, false)
 
         return ViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
-
-        val context = holder!!.itemView.context
-
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         with(competitionsList[position]) {
 
             holder.nameTextView.text = let { caption }
@@ -32,7 +30,7 @@ class CompetitionsRvAdapter(private val listener: SimpleOnItemSelectedListener<C
             holder.updatedTextView.text = let { lastUpdated }
 
             holder.itemView.setOnClickListener {
-             listener.onItemSelected(let { this })
+                listener.onItemSelected(let { this })
             }
         }
     }

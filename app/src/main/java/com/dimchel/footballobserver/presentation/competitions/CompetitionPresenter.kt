@@ -24,8 +24,11 @@ class CompetitionPresenter:
         Application.instance.initCompetitionComponent().inject(this)
     }
 
-    override fun attachView(view: CompetitionsView?) {
-        super.attachView(view)
+    override fun onFirstViewAttach() {
+        super.onFirstViewAttach()
+
+        viewState.showCompetitionsListView(false)
+        viewState.showProgress(true)
 
         repo.getCompetitionsList().subscribe(this)
     }
@@ -49,7 +52,10 @@ class CompetitionPresenter:
     // ===========================================================
 
     override fun onSuccess(data: List<CompetitionModel>) {
-        viewState.showCompetitionsList(data)
+        viewState.showProgress(false)
+
+        viewState.showCompetitionsListView(true)
+        viewState.updateCompetitionsListView(data)
     }
 
     override fun onError(e: Throwable) {
