@@ -43,7 +43,7 @@ class ClubPresenter(private val clubId: Long) : MvpPresenter<ClubView>() {
 //        viewState.updateTitleView(model.leagueCaption)
 //        viewState.updateMatchdayView(model.matchday)
 //
-//        viewState.showStandingList(model.standing)
+//        viewState.showStandingListView(model.standing)
 //    }
 //
 //    override fun onError(t: Throwable) {

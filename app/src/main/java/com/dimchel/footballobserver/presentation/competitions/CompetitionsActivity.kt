@@ -21,12 +21,13 @@ class CompetitionsActivity :
         SimpleOnItemSelectedListener<CompetitionModel> {
 
     private lateinit var progressView: View
+
     private lateinit var competitionsRecyclerView: RecyclerView
+    private lateinit var adapter: CompetitionsRvAdapter
 
     @InjectPresenter
     lateinit var presenter: CompetitionPresenter
 
-    private lateinit var adapter: CompetitionsRvAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

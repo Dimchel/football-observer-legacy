@@ -27,11 +27,8 @@ class LeaguePresenter(private val competitionId: Long) :
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
 
-        viewState.hideStandingList()
-    }
-
-    override fun attachView(view: LeagueView?) {
-        super.attachView(view)
+        viewState.showStandingListView(false)
+        viewState.showProgressView(true)
 
         repo.getLeagueTable(competitionId).subscribe(this)
     }
@@ -50,7 +47,10 @@ class LeaguePresenter(private val competitionId: Long) :
         viewState.updateTitleView(model.leagueCaption)
         viewState.updateMatchdayView(model.matchday)
 
-        viewState.showStandingList(model.standing)
+        viewState.showProgressView(false)
+        viewState.showStandingListView(true)
+
+        viewState.updateStandingListView(model.standing)
     }
 
     override fun onError(t: Throwable) {

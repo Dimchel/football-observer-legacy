@@ -13,8 +13,11 @@ interface LeagueView : MvpView {
     fun updateTitleView(leagueName: String)
     fun updateMatchdayView(matchday: Int)
 
+    fun showStandingListView(show: Boolean)
+
     @StateStrategyType(SkipStrategy::class)
-    fun showStandingList(competitionersList: List<CompetitionerModel>)
-    fun hideStandingList()
+    fun updateStandingListView(competitionersList: List<CompetitionerModel>)
+
+    fun showProgressView(show: Boolean)
 
 }
