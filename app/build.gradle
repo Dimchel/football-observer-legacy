@@ -33,7 +33,7 @@ kapt {
     generateStubs = true
 }
 
-def support_lib_ver = "27.0.2"
+def support_lib_ver = "27.1.0"
 def retrofit_ver = "2.3.0"
 def dagger_ver = "2.13"
 def moxy_ver = "1.5.3"
@@ -48,6 +48,7 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+    testCompile 'org.mockito:mockito-core:2.16.0'
 
     implementation "com.android.support:appcompat-v7:$support_lib_ver"
     implementation "com.android.support:recyclerview-v7:$support_lib_ver"
