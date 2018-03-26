@@ -8,11 +8,14 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import com.arellomobile.mvp.MvpAppCompatActivity
 import com.arellomobile.mvp.presenter.InjectPresenter
+import com.arellomobile.mvp.presenter.ProvidePresenter
+import com.dimchel.footballobserver.Application
 import com.dimchel.footballobserver.R
 import com.dimchel.footballobserver.common.simpleclasses.SimpleOnItemSelectedListener
 import com.dimchel.footballobserver.data.repos.competition.models.CompetitionModel
 import com.dimchel.footballobserver.presentation.league.LeagueActivity
 import com.dimchel.footballobserver.presentation.league.LeagueActivity.Companion.BUNDLE_COMPETITION_ID
+import javax.inject.Inject
 
 
 class CompetitionsActivity :
@@ -25,11 +28,18 @@ class CompetitionsActivity :
     private lateinit var competitionsRecyclerView: RecyclerView
     private lateinit var adapter: CompetitionsRvAdapter
 
+    @Inject
     @InjectPresenter
     lateinit var presenter: CompetitionPresenter
 
+    @ProvidePresenter
+    fun providePresenter(): CompetitionPresenter {
+        return presenter
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        Application.instance.initCompetitionComponent().inject(this)
+
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_competitions)

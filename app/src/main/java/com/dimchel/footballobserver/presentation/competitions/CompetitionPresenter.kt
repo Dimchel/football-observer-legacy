@@ -2,27 +2,18 @@ package com.dimchel.footballobserver.presentation.competitions
 
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
-import com.dimchel.footballobserver.Application
 import com.dimchel.footballobserver.data.repos.competition.CompetitionRepo
 import com.dimchel.footballobserver.data.repos.competition.models.CompetitionModel
 import io.reactivex.SingleObserver
 import io.reactivex.disposables.Disposable
-import javax.inject.Inject
 
 
 @InjectViewState
-class CompetitionPresenter:
+class CompetitionPresenter(private val repo: CompetitionRepo):
         MvpPresenter<CompetitionsView>(),
         SingleObserver<List<CompetitionModel>> {
 
-    @Inject
-    lateinit var repo: CompetitionRepo
-
     private var repoDisposable: Disposable? = null
-
-    init {
-        Application.instance.initCompetitionComponent().inject(this)
-    }
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()

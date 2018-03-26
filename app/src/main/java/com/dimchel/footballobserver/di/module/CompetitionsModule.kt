@@ -5,6 +5,7 @@ import com.dimchel.footballobserver.data.networks.ApiServiceProvider
 import com.dimchel.footballobserver.data.repos.competition.CompetitionRepo
 import com.dimchel.footballobserver.data.repos.competition.CompetitionRepoImpl
 import com.dimchel.footballobserver.di.scopes.CompetitionScope
+import com.dimchel.footballobserver.presentation.competitions.CompetitionPresenter
 import dagger.Module
 import dagger.Provides
 
@@ -22,6 +23,12 @@ class CompetitionsModule {
     @Provides
     fun provideCompetitionRepo(apiProvider: ApiServiceProvider, mapper: CompetitionMapper): CompetitionRepo {
         return CompetitionRepoImpl(apiProvider, mapper)
+    }
+
+    @CompetitionScope
+    @Provides
+    fun provideCompetitionPresenter(competitionRepo: CompetitionRepo): CompetitionPresenter {
+        return CompetitionPresenter(competitionRepo)
     }
 
 }
