@@ -15,8 +15,8 @@ class CompetitionPresenter(private val repo: CompetitionRepo):
 
     private var repoDisposable: Disposable? = null
 
-    override fun onFirstViewAttach() {
-        super.onFirstViewAttach()
+    override fun attachView(view: CompetitionsView?) {
+        super.attachView(view)
 
         viewState.showCompetitionsListView(false)
         viewState.showProgress(true)

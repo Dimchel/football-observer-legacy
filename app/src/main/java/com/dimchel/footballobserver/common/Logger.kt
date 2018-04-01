@@ -4,11 +4,16 @@ import android.util.Log
 import com.dimchel.footballobserver.BuildConfig
 
 
-class Logger() {
+class Logger {
 
     companion object {
 
-        private val APP_TAG: String = "FootballObserver_"
+        private const val APP_TAG: String = "FootballObserver_"
+
+        fun log(msg: String) {
+            if (!BuildConfig.DEBUG) return
+            Log.d(APP_TAG, msg)
+        }
 
         fun log(tag: String, msg: String) {
             if (!BuildConfig.DEBUG) return

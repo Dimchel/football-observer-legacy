@@ -15,6 +15,7 @@ interface CompetitionsView: MvpView{
     @StateStrategyType(SkipStrategy::class)
     fun updateCompetitionsListView(competitionsList: List<CompetitionModel>)
 
+    @StateStrategyType(SkipStrategy::class)
     fun showLeagueView(competitionId: Long)
 
     fun showProgress(show: Boolean)

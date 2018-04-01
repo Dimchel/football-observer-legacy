@@ -12,6 +12,5 @@ import javax.inject.Singleton
 interface AppComponent {
 
     fun competitionComponent(competitionsModule: CompetitionsModule): CompetitionComponent
-//    fun clubComponent(clubModule: ClubModule): ClubComponent
 
 }

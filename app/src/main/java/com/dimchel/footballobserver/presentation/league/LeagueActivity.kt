@@ -9,16 +9,22 @@ import android.view.View
 import com.arellomobile.mvp.MvpAppCompatActivity
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
+import com.dimchel.footballobserver.Application
 import com.dimchel.footballobserver.R
 import com.dimchel.footballobserver.common.simpleclasses.SimpleOnItemSelectedListener
 import com.dimchel.footballobserver.data.managers.IconManager
 import com.dimchel.footballobserver.data.repos.competition.models.CompetitionerModel
+import javax.inject.Inject
 
 
-class LeagueActivity : MvpAppCompatActivity(), LeagueView, SimpleOnItemSelectedListener<CompetitionerModel> {
+class LeagueActivity :
+        MvpAppCompatActivity(),
+        LeagueView,
+        SimpleOnItemSelectedListener<CompetitionerModel> {
 
     companion object {
-        val BUNDLE_COMPETITION_ID = "CompetitionsActivity.BUNDLE_COMPETITION_ID"
+        const val TAG_LEAGUE_ACTIVITY = "LeagueActivity.TAG_LEAGUE_ACTIVITY"
+        const val BUNDLE_COMPETITION_ID = "LeagueActivity.BUNDLE_COMPETITION_ID"
     }
 
     private lateinit var progressView: View
@@ -26,15 +32,18 @@ class LeagueActivity : MvpAppCompatActivity(), LeagueView, SimpleOnItemSelectedL
     private lateinit var leagueRecyclerView: RecyclerView
     private lateinit var adapter: LeagueRvAdapter
 
+    @Inject
     @InjectPresenter
     lateinit var presenter: LeaguePresenter
 
     @ProvidePresenter
-    fun provideLeaguePresenter(): LeaguePresenter {
-        return LeaguePresenter(intent.getLongExtra(BUNDLE_COMPETITION_ID, 0))
+    fun providePresenter(): LeaguePresenter {
+        return presenter
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        Application.instance.getDiManager().getLeagueComponent(TAG_LEAGUE_ACTIVITY, intent.getLongExtra(BUNDLE_COMPETITION_ID, 0)).inject(this)
+
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_league)
@@ -42,17 +51,6 @@ class LeagueActivity : MvpAppCompatActivity(), LeagueView, SimpleOnItemSelectedL
         initActionBar()
 
         initViews()
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        return when (item?.itemId) {
-            android.R.id.home -> {
-                finish()
-
-                return true
-            }
-            else -> super.onOptionsItemSelected(item)
-        }
     }
 
     private fun initActionBar() {
@@ -75,6 +73,25 @@ class LeagueActivity : MvpAppCompatActivity(), LeagueView, SimpleOnItemSelectedL
 
         adapter = LeagueRvAdapter(IconManager(),this)
         leagueRecyclerView.adapter = adapter
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        return when (item?.itemId) {
+            android.R.id.home -> {
+                finish()
+
+                return true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    override fun onDestroy() {
+        if (isFinishing) {
+            Application.instance.getDiManager().releaseLeagueComponent(TAG_LEAGUE_ACTIVITY)
+        }
+
+        super.onDestroy()
     }
 
     // ===========================================================

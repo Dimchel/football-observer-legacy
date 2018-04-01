@@ -23,6 +23,10 @@ class CompetitionsActivity :
         CompetitionsView,
         SimpleOnItemSelectedListener<CompetitionModel> {
 
+    companion object {
+        const val TAG_COMPETITIONS_ACTIVITY = "CompetitionsActivity.TAG_COMPETITION_ACTIVITY"
+    }
+
     private lateinit var progressView: View
 
     private lateinit var competitionsRecyclerView: RecyclerView
@@ -38,7 +42,7 @@ class CompetitionsActivity :
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        Application.instance.initCompetitionComponent().inject(this)
+        Application.instance.getDiManager().getCompetitionComponent(TAG_COMPETITIONS_ACTIVITY).inject(this)
 
         super.onCreate(savedInstanceState)
 
@@ -54,7 +58,7 @@ class CompetitionsActivity :
     }
 
     private fun initRecyclerView() {
-        competitionsRecyclerView = findViewById<RecyclerView>(R.id.competitions_recyclerview)
+        competitionsRecyclerView = findViewById(R.id.competitions_recyclerview)
 
         competitionsRecyclerView.layoutManager = LinearLayoutManager(this)
 
@@ -63,6 +67,13 @@ class CompetitionsActivity :
 
         adapter = CompetitionsRvAdapter(this)
         competitionsRecyclerView.adapter = adapter
+    }
+
+    override fun onDestroy() {
+        if (isFinishing) {
+            Application.instance.getDiManager().releaseCompetitionComponent(TAG_COMPETITIONS_ACTIVITY)
+        }
+        super.onDestroy()
     }
 
     // ===========================================================
