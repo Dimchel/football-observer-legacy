@@ -53,7 +53,7 @@ class DiManagerImpl(private val appComponent: AppComponent): DiManager {
         listenersMap[TAG_LEAGUE_COMPONENT]!!.remove(tag)
 
         if (listenersMap[TAG_LEAGUE_COMPONENT]!!.isEmpty()) {
-            competitionComponent = null
+            leagueComponent = null
         }
     }
 
