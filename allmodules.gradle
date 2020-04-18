@@ -1,0 +1,83 @@
+def APPLICATION_MODULES = [
+    'app'
+]
+
+def MODULES_WITH_TESTS = [
+    'core'
+]
+
+subprojects {
+    if (APPLICATION_MODULES.contains(name)) {
+        apply plugin: 'com.android.application'
+    } else {
+        apply plugin: 'com.android.library'
+    }
+
+    apply plugin: 'kotlin-android'
+    apply plugin: 'kotlin-kapt'
+
+    android {
+        compileSdkVersion 29
+        buildToolsVersion '29.0.3'
+
+        defaultConfig {
+
+            minSdkVersion 19
+            targetSdkVersion 29
+
+            vectorDrawables.useSupportLibrary = true
+
+            testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
+
+            if (!APPLICATION_MODULES.contains(name)) {
+                consumerProguardFiles file("$rootDir/proguard-rules.pro")
+            }
+        }
+
+        buildTypes {
+            debug {
+                minifyEnabled false
+                ext.enableCrashlytics = false
+            }
+
+            release {
+                minifyEnabled true
+
+                if (APPLICATION_MODULES.contains(name)) {
+                    shrinkResources true
+                    proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+                }
+            }
+        }
+
+        compileOptions {
+            sourceCompatibility JavaVersion.VERSION_1_8
+            targetCompatibility JavaVersion.VERSION_1_8
+        }
+
+        kotlinOptions {
+            jvmTarget = JavaVersion.VERSION_1_8
+        }
+
+        sourceSets {
+            test.java.srcDirs += 'src/test/kotlin'
+        }
+
+        packagingOptions {
+            exclude 'META-INF/LICENSE.md'
+            exclude 'META-INF/LICENSE-notice.md'
+            exclude("META-INF/*.kotlin_module")
+        }
+    }
+}
+
+task testAllModules() {
+    group "verification"
+    dependsOn ':app-otp:testProductionDebugUnitTest'
+
+    subprojects {
+        if (!APPLICATION_MODULES.contains(name) && MODULES_WITH_TESTS.contains(name)) {
+            dependsOn ":$name:testDebugUnitTest"
+        }
+    }
+}

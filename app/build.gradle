@@ -1,9 +1,6 @@
-apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
+fileTree("scripts").each { apply from: "$it" }
 
 android {
-    compileSdkVersion 27
 
     defaultConfig {
         applicationId "com.dimchel.footballobserver"
@@ -11,8 +8,7 @@ android {
         versionCode 1
         versionName "1.0"
 
-        minSdkVersion 19
-        targetSdkVersion 27
+        minSdkVersion 21
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
@@ -25,49 +21,8 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-
-    buildToolsVersion "27.0.0"
 }
-
-kapt {
-    generateStubs = true
-}
-
-def support_lib_ver = "27.0.2"
-def retrofit_ver = "2.3.0"
-def dagger_ver = "2.13"
-def moxy_ver = "1.5.3"
-def rx_android_ver = "2.0.1"
-def rx_kotlin_ver = "2.2.0"
 
 dependencies {
-    implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
 
-    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.1'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
-
-    implementation "com.android.support:appcompat-v7:$support_lib_ver"
-    implementation "com.android.support:recyclerview-v7:$support_lib_ver"
-    implementation "com.android.support:design:$support_lib_ver"
-
-    implementation "com.squareup.retrofit2:retrofit:$retrofit_ver"
-    implementation "com.squareup.retrofit2:converter-gson:$retrofit_ver"
-    implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofit_ver"
-    implementation 'com.squareup.okhttp3:logging-interceptor:3.9.1'
-
-    implementation "com.google.dagger:dagger:$dagger_ver"
-    annotationProcessor "com.google.dagger:dagger-compiler:$dagger_ver"
-    kapt "com.google.dagger:dagger-compiler:$dagger_ver"
-    kapt "com.google.dagger:dagger-android-processor:$dagger_ver"
-
-    implementation "com.arello-mobile:moxy:$moxy_ver"
-    implementation "com.arello-mobile:moxy-app-compat:$moxy_ver"
-    kapt "com.arello-mobile:moxy-compiler:$moxy_ver"
-    annotationProcessor "com.arello-mobile:moxy-compiler:$moxy_ver"
-
-    implementation "io.reactivex.rxjava2:rxkotlin:$rx_kotlin_ver"
-    compile "io.reactivex.rxjava2:rxandroid:$rx_android_ver"
 }
