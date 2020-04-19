@@ -1,12 +1,10 @@
 package com.dimchel.footballobserver.data.managers
 
-import android.support.annotation.DrawableRes
 import com.dimchel.footballobserver.R
 
 
 class IconManager {
 
-    @DrawableRes
     fun getImageResource(teamTame: String):  Int {
         return when (teamTame) {
             "Manchester City FC" -> R.drawable.icon_team_manc

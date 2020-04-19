@@ -1,0 +1,3 @@
+package com.dimchel.feature_competitions.di
+
+interface CompetitionDependencyProvider

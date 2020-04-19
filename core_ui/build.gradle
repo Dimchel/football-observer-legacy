@@ -1,0 +1,8 @@
+android {
+    resourcePrefix "core_ui_"
+}
+
+dependencies {
+    api "androidx.appcompat:appcompat:$appcompat_version"
+    api "com.google.android.material:material:$material_version"
+}

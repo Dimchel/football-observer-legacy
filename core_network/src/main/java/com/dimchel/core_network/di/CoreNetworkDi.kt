@@ -1,6 +1,7 @@
 package com.dimchel.core_network.di
 
 import android.content.Context
+import com.dimchel.core_network.ApiConstants
 import com.dimchel.core_network.providers.ApiServiceProvider
 import com.dimchel.core_network.providers.ApiServiceProviderImpl
 import com.dimchel.core_network.providers.FootballApiService
@@ -34,48 +35,59 @@ interface CoreNetworkComponent : CoreNetworkDependencyProvider {
 @Module
 abstract class NetworkModule(private val baseUrl: String) {
 
-	@CoreNetworkScope
-	@Provides
-	fun provideOkHttpLoggingInterceptor(): HttpLoggingInterceptor = HttpLoggingInterceptor().apply {
-		level = HttpLoggingInterceptor.Level.BODY
-	}
+	@Module
+	companion object {
 
-	@CoreNetworkScope
-	@Provides
-	fun provideOkHttpInterceptor(): Interceptor =
-		Interceptor { chain ->
-			val request = chain.request().newBuilder()
-				.addHeader("X-Auth-Token", "850f87bfd30f4c50866402773c7ed417")
-				.build()
-
-			chain.proceed(request)
+		@JvmStatic
+		@CoreNetworkScope
+		@Provides
+		fun provideOkHttpLoggingInterceptor(): HttpLoggingInterceptor = HttpLoggingInterceptor().apply {
+			level = HttpLoggingInterceptor.Level.BODY
 		}
 
-	@CoreNetworkScope
-	@Provides
-	fun provideOkHttpClient(headerInterceptor: Interceptor, loggingInterceptor: HttpLoggingInterceptor): OkHttpClient =
-		OkHttpClient.Builder()
-			.addInterceptor(headerInterceptor)
-			.addInterceptor(loggingInterceptor)
-			.build()
+		@JvmStatic
+		@CoreNetworkScope
+		@Provides
+		fun provideOkHttpInterceptor(): Interceptor =
+			Interceptor { chain ->
+				val request = chain.request().newBuilder()
+					.addHeader("X-Auth-Token", "850f87bfd30f4c50866402773c7ed417")
+					.build()
 
-	@CoreNetworkScope
-	@Provides
-	fun provideGsonConverterFactory(): GsonConverterFactory = GsonConverterFactory.create()
+				chain.proceed(request)
+			}
 
-	@CoreNetworkScope
-	@Provides
-	fun provideRetrofit(okHttpClient: OkHttpClient, gsonConverterFactory: GsonConverterFactory): Retrofit =
-		Retrofit.Builder()
-			.client(okHttpClient)
-			.addConverterFactory(gsonConverterFactory)
-			.baseUrl(baseUrl)
-			.build()
+		@JvmStatic
+		@CoreNetworkScope
+		@Provides
+		fun provideOkHttpClient(headerInterceptor: Interceptor, loggingInterceptor: HttpLoggingInterceptor): OkHttpClient =
+			OkHttpClient.Builder()
+				.addInterceptor(headerInterceptor)
+				.addInterceptor(loggingInterceptor)
+				.build()
 
-	@CoreNetworkScope
-	@Provides
-	fun provideFootballApiService(retrofit: Retrofit): FootballApiService =
-		retrofit.create(FootballApiService::class.java)
+		@JvmStatic
+		@CoreNetworkScope
+		@Provides
+		fun provideGsonConverterFactory(): GsonConverterFactory = GsonConverterFactory.create()
+
+		@JvmStatic
+		@CoreNetworkScope
+		@Provides
+		fun provideRetrofit(okHttpClient: OkHttpClient, gsonConverterFactory: GsonConverterFactory): Retrofit =
+			Retrofit.Builder()
+				.client(okHttpClient)
+				.addConverterFactory(gsonConverterFactory)
+				.baseUrl(ApiConstants.API_ENDPOINT)
+				.build()
+
+		@JvmStatic
+		@CoreNetworkScope
+		@Provides
+		fun provideFootballApiService(retrofit: Retrofit): FootballApiService =
+			retrofit.create(FootballApiService::class.java)
+
+	}
 
 	@CoreNetworkScope
 	@Binds

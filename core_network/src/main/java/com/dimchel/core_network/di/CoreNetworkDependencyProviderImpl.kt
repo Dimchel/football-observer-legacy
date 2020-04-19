@@ -6,7 +6,7 @@ import com.dimchel.core_architecture.di.BaseDependencyProvider
 class CoreNetworkDependencyProviderImpl : BaseDependencyProvider<CoreNetworkDependencyProvider>() {
 
 	override fun createDependency(application: Application): CoreNetworkDependencyProvider =
-		CoreNetworkComponent.builder()
+		DaggerCoreNetworkComponent.builder()
 			.appContext(application)
 			.build()
 }

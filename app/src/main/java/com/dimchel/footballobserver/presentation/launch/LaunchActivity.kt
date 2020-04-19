@@ -1,13 +1,12 @@
 package com.dimchel.footballobserver.presentation.launch
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import com.dimchel.feature_competitions.presentation.CompetitionsActivity
 import com.dimchel.footballobserver.R
-import com.dimchel.footballobserver.presentation.competitions.CompetitionsActivity
 
-
-class LaunchActivity : AppCompatActivity() {
+class LaunchActivity : Activity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -18,5 +17,4 @@ class LaunchActivity : AppCompatActivity() {
 
         finish()
     }
-
 }

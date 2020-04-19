@@ -24,5 +24,8 @@ android {
 }
 
 dependencies {
-
+    api project(':core')
+    implementation project(':core_architecture')
+    implementation project(':core_network')
+    implementation project(':feature_competitions')
 }

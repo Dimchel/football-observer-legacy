@@ -1,4 +1,7 @@
 include ':app'
 include ':core'
+include ':core_ui'
 include ':core_network'
 include ':core_architecture'
+include ':feature_competitions'
+include ':feature_league'
