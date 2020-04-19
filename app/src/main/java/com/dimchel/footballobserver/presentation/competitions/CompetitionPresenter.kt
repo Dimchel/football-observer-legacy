@@ -3,7 +3,7 @@ package com.dimchel.footballobserver.presentation.competitions
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
 import com.dimchel.footballobserver.Application
-import com.dimchel.footballobserver.data.repos.competition.CompetitionRepo
+import com.dimchel.footballobserver.data.repos.competition.CompetitionRepository
 import com.dimchel.footballobserver.data.repos.competition.models.CompetitionModel
 import io.reactivex.SingleObserver
 import io.reactivex.disposables.Disposable
@@ -16,7 +16,7 @@ class CompetitionPresenter:
         SingleObserver<List<CompetitionModel>> {
 
     @Inject
-    lateinit var repo: CompetitionRepo
+    lateinit var repo: CompetitionRepository
 
     private var repoDisposable: Disposable? = null
 

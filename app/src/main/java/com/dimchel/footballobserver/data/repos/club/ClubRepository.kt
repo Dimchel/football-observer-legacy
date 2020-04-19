@@ -1,9 +1,9 @@
 package com.dimchel.footballobserver.data.repos.club
 
-import com.dimchel.footballobserver.data.repos.Repo
+import com.dimchel.core_architecture.repository.Repository
 
 
-interface ClubRepo : Repo {
+interface ClubRepository : com.dimchel.core_architecture.repository.Repository {
 
 //    fun getClub(clubId: Long): Single<List<ClubModel>>
 //    fun getPlayersList(clubId: Long): Single<List<PlayerModel>>

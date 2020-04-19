@@ -1,2 +1,4 @@
 include ':app'
 include ':core'
+include ':core_network'
+include ':core_architecture'

@@ -1,16 +1,16 @@
 package com.dimchel.footballobserver.data.repos.competition
 
 import com.dimchel.footballobserver.data.mappers.CompetitionMapper
-import com.dimchel.footballobserver.data.networks.ApiServiceProvider
+import com.dimchel.core_network.providers.ApiServiceProvider
 import com.dimchel.footballobserver.data.repos.competition.models.CompetitionModel
 import com.dimchel.footballobserver.data.repos.competition.models.LeagueModel
 import io.reactivex.Single
 
 
-class CompetitionRepoImpl(
-        private val apiProvider: ApiServiceProvider,
+class CompetitionRepositoryImpl(
+        private val apiProvider: com.dimchel.core_network.providers.ApiServiceProvider,
         private val mapper: CompetitionMapper)
-    : CompetitionRepo {
+    : CompetitionRepository {
 
     private var competitionsCashList: List<CompetitionModel> = ArrayList()
     private var leagueMap: HashMap<Long, LeagueModel> = HashMap()

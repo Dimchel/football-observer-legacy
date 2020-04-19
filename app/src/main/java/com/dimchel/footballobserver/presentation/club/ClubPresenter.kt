@@ -2,7 +2,7 @@ package com.dimchel.footballobserver.presentation.club
 
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
-import com.dimchel.footballobserver.data.repos.competition.CompetitionRepo
+import com.dimchel.footballobserver.data.repos.competition.CompetitionRepository
 import io.reactivex.disposables.Disposable
 import javax.inject.Inject
 
@@ -13,7 +13,7 @@ class ClubPresenter(private val clubId: Long) : MvpPresenter<ClubView>() {
     private var disposable: Disposable? = null
 
     @Inject
-    lateinit var repo: CompetitionRepo
+    lateinit var repo: CompetitionRepository
 
     init {
 //        Application.instance.initClubComponent().inject(this)

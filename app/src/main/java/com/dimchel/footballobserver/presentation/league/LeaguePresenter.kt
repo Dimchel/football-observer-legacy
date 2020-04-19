@@ -3,7 +3,7 @@ package com.dimchel.footballobserver.presentation.league
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
 import com.dimchel.footballobserver.Application
-import com.dimchel.footballobserver.data.repos.competition.CompetitionRepo
+import com.dimchel.footballobserver.data.repos.competition.CompetitionRepository
 import com.dimchel.footballobserver.data.repos.competition.models.LeagueModel
 import io.reactivex.SingleObserver
 import io.reactivex.disposables.Disposable
@@ -18,7 +18,7 @@ class LeaguePresenter(private val competitionId: Long) :
     private var disposable: Disposable? = null
 
     @Inject
-    lateinit var repo: CompetitionRepo
+    lateinit var repo: CompetitionRepository
 
     init {
         Application.instance.initCompetitionComponent().inject(this)

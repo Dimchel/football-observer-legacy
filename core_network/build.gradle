@@ -1,0 +1,12 @@
+android {
+    resourcePrefix "core_network_"
+}
+
+dependencies {
+    api project(':core')
+    implementation project(':core_architecture')
+
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
+    implementation "com.squareup.okhttp3:logging-interceptor:$okhttp_version"
+}
