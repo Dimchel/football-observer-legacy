@@ -2,5 +2,5 @@ package com.dimchel.core_network
 
 object ApiConstants {
 
-    const val API_ENDPOINT = "http://api.football-data.org/v1/"
+    const val API_ENDPOINT = "https://api.football-data.org/v3/"
 }

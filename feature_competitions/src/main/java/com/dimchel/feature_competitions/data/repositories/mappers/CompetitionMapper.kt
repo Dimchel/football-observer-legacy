@@ -10,13 +10,13 @@ import com.dimchel.feature_competitions.data.repositories.models.LeagueModel
 fun CompetitionScheme.mapToModel() =
     CompetitionModel(
         id,
-        caption,
-        league,
-        year,
-        currentMatchday,
-        numberOfMatchdays,
-        numberOfTeams,
-        numberOfGames,
+        name,
+//        league,
+//        year,
+//        currentMatchday,
+//        numberOfMatchdays,
+//        numberOfTeams,
+//        numberOfGames,
         lastUpdated
     )
 

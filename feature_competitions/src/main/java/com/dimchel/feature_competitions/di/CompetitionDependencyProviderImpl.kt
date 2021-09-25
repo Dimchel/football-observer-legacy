@@ -2,11 +2,13 @@ package com.dimchel.feature_competitions.di
 
 import android.app.Application
 import com.dimchel.core_architecture.di.BaseDependencyProvider
+import com.dimchel.core_network.di.CoreNetworkDependencyProviderImpl
 
-class CompetitionDependencyProviderImpl : BaseDependencyProvider<CompetitionDependencyProvider>() {
+object CompetitionDependencyProviderImpl : BaseDependencyProvider<CompetitionDependencyProvider>() {
 
 	override fun createDependency(application: Application): CompetitionDependencyProvider =
-		DaggerCompetitionComponent.builder()
-			.appContext(application)
-			.build()
+		DaggerCompetitionComponent.factory().create(
+			application,
+			CoreNetworkDependencyProviderImpl.provide(application),
+		)
 }

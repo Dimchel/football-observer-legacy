@@ -10,7 +10,7 @@ class ApiServiceProviderImpl @Inject constructor(
     private val apiService: FootballApiService
 ) : ApiServiceProvider {
 
-    override suspend fun fetchCompetitions(): List<CompetitionScheme> = apiService.getCompetitionsList()
+    override suspend fun fetchCompetitions(): List<CompetitionScheme> = apiService.getCompetitionsList().competitions
 
     override suspend fun fetchLeague(competitionId: Long): LeagueScheme = apiService.getCompetitionsList(competitionId)
 

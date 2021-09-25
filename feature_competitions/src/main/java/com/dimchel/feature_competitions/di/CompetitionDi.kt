@@ -1,8 +1,10 @@
 package com.dimchel.feature_competitions.di
 
 import android.content.Context
+import com.dimchel.core_network.di.CoreNetworkDependencyProvider
 import com.dimchel.feature_competitions.data.repositories.CompetitionRepository
 import com.dimchel.feature_competitions.data.repositories.CompetitionRepositoryImpl
+import com.dimchel.feature_competitions.presentation.CompetitionsActivity
 import dagger.*
 import javax.inject.Scope
 
@@ -11,17 +13,21 @@ import javax.inject.Scope
 annotation class CompetitionScope
 
 @CompetitionScope
-@Component(modules = [(CompetitionsModule::class)])
+@Component(
+	dependencies = [CoreNetworkDependencyProvider::class],
+	modules = [(CompetitionsModule::class)]
+)
 interface CompetitionComponent : CompetitionDependencyProvider {
 
-	@Component.Builder
-	interface Builder {
-
-		@BindsInstance
-		fun appContext(appContext: Context): Builder
-
-		fun build(): CompetitionComponent
+	@Component.Factory
+	interface Factory {
+		fun create(
+			@BindsInstance appContext: Context,
+			coreNetworkDependencyProvider: CoreNetworkDependencyProvider,
+		): CompetitionComponent
 	}
+
+	fun inject(competitionsActivity: CompetitionsActivity)
 }
 
 @Module

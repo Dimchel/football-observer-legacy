@@ -27,13 +27,12 @@ interface CoreNetworkComponent : CoreNetworkDependencyProvider {
 
 		@BindsInstance
 		fun appContext(appContext: Context): Builder
-
 		fun build(): CoreNetworkComponent
 	}
 }
 
 @Module
-abstract class NetworkModule(private val baseUrl: String) {
+abstract class NetworkModule {
 
 	@Module
 	companion object {

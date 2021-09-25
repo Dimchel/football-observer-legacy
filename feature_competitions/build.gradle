@@ -3,7 +3,6 @@ android {
 }
 
 dependencies {
-    api project(':core')
     implementation project(':core_ui')
     implementation project(':core_architecture')
     implementation project(':core_network')
