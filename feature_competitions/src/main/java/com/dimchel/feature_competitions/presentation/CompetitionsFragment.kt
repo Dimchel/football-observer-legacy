@@ -2,14 +2,16 @@ package com.dimchel.feature_competitions.presentation
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.dimchel.core_architecture.data.ProgressData
 import com.dimchel.core_architecture.fragments.BaseFragment
 import com.dimchel.core_architecture.fragments.viewBinding
 import com.dimchel.core_architecture.viewmodels.ViewModelFactory
 import com.dimchel.core_architecture.viewmodels.getViewModel
 import com.dimchel.feature_competitions.R
-import com.dimchel.feature_competitions.databinding.CompetitionsActivityBinding
+import com.dimchel.feature_competitions.databinding.FragmentCompetitionsBinding
 import com.dimchel.feature_competitions.di.CompetitionComponent
 import com.dimchel.feature_competitions.di.CompetitionDependencyProviderImpl
 import javax.inject.Inject
@@ -22,9 +24,9 @@ class CompetitionsFragment : BaseFragment() {
 
     private lateinit var adapter: CompetitionsAdapter
 
-    private val binding by viewBinding(CompetitionsActivityBinding::bind)
+    private val binding by viewBinding(FragmentCompetitionsBinding::bind)
 
-    override fun getLayoutResId(): Int = R.layout.competitions_activity
+    override fun getLayoutResId(): Int = R.layout.fragment_competitions
     override fun injectDependencies() {
         (CompetitionDependencyProviderImpl.provide(requireActivity().application) as CompetitionComponent)
             .inject(this)
@@ -35,23 +37,48 @@ class CompetitionsFragment : BaseFragment() {
 
         initViews()
 
-        viewModel = viewModelFactory.getViewModel(this)
-        viewModel.competitionsLiveData.observe(viewLifecycleOwner) {
-            adapter.setData(it)
-        }
+        initViewModel()
     }
 
     private fun initViews() {
         initRecycler()
+
+        binding.competitionsRetryButton.setOnClickListener {
+            viewModel.onRetryAction()
+        }
     }
 
     private fun initRecycler() {
-        binding.competitionsRecyclerview.apply {
+        binding.competitionsRecyclerView.apply {
             layoutManager = LinearLayoutManager(requireContext())
             addItemDecoration(DividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL))
 
-            this@CompetitionsFragment.adapter = CompetitionsAdapter { }
+            this@CompetitionsFragment.adapter = CompetitionsAdapter {
+                viewModel.onCompetitionSelected(it)
+            }
             adapter = this@CompetitionsFragment.adapter
+        }
+    }
+
+    private fun initViewModel() {
+        viewModel = viewModelFactory.getViewModel(this)
+
+        viewModel.competitionsLiveData.observe(viewLifecycleOwner) {
+            binding.apply {
+                competitionsRecyclerView.isVisible = false
+                competitionsProgressBar.isVisible = false
+                competitionsRetryButton.isVisible = false
+
+                when (it) {
+                    is ProgressData.Loading -> competitionsProgressBar.isVisible = true
+                    is ProgressData.Error -> competitionsRetryButton.isVisible = true
+                    is ProgressData.Success -> {
+                        adapter.setData(it.result)
+
+                        competitionsRecyclerView.isVisible = true
+                    }
+                }
+            }
         }
     }
 }

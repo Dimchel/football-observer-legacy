@@ -1,5 +1,7 @@
 package com.dimchel.feature_competitions.data.repositories
 
+import com.dimchel.core_architecture.data.DataResult
+import com.dimchel.core_architecture.data.mapSuccess
 import com.dimchel.core_network.providers.ApiServiceProvider
 import com.dimchel.feature_competitions.data.repositories.mappers.mapToModel
 import com.dimchel.feature_competitions.data.repositories.models.CompetitionModel
@@ -15,21 +17,26 @@ class CompetitionRepositoryImpl @Inject constructor(
     private var competitionsCashList: List<CompetitionModel> = ArrayList()
     private var leagueMap: HashMap<Long, LeagueModel> = HashMap()
 
-    override suspend fun getCompetitionsList(): List<CompetitionModel> =
+    override suspend fun getCompetitionsList(): DataResult<List<CompetitionModel>> =
         if (competitionsCashList.isEmpty()) {
-            competitionsCashList = apiProvider.fetchCompetitions().map { it.mapToModel() }
-
-            competitionsCashList
+            apiProvider.fetchCompetitions().mapSuccess { schemes ->
+                val models = schemes.map { it.mapToModel() }
+                competitionsCashList = models
+                models
+            }
         } else {
-            competitionsCashList
+            DataResult.DataSuccess(competitionsCashList)
         }
 
-    override suspend fun getLeagueTable(competitionId: Long): LeagueModel =
-        if (!leagueMap.containsKey(competitionId)) {
-            leagueMap[competitionId] = apiProvider.fetchLeague(competitionId).mapToModel()
 
-            leagueMap[competitionId]!!
+    override suspend fun getLeagueTable(competitionId: Long): DataResult<LeagueModel> =
+        if (!leagueMap.containsKey(competitionId)) {
+            apiProvider.fetchLeague(competitionId).mapSuccess { scheme ->
+                val model = scheme.mapToModel()
+                leagueMap[competitionId] = model
+                model
+            }
         } else {
-            leagueMap[competitionId]!!
+            DataResult.DataSuccess(leagueMap[competitionId]!!)
         }
 }

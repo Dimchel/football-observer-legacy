@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.dimchel.feature_competitions.data.repositories.models.CompetitionModel
-import com.dimchel.feature_competitions.databinding.CompetitionsItemBinding
+import com.dimchel.feature_competitions.databinding.ItemCompetitionsBinding
 import com.hannesdorfmann.adapterdelegates4.AbsListItemAdapterDelegate
 import com.hannesdorfmann.adapterdelegates4.ListDelegationAdapter
 
@@ -34,7 +34,7 @@ private class CompetitionsDelegate(
     ): Boolean = true
 
     override fun onCreateViewHolder(parent: ViewGroup) = ViewHolder(
-        CompetitionsItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        ItemCompetitionsBinding.inflate(LayoutInflater.from(parent.context), parent, false)
     )
 
     override fun onBindViewHolder(
@@ -54,4 +54,4 @@ private class CompetitionsDelegate(
 
 }
 
-private class ViewHolder(val binding: CompetitionsItemBinding) : RecyclerView.ViewHolder(binding.root)
+private class ViewHolder(val binding: ItemCompetitionsBinding) : RecyclerView.ViewHolder(binding.root)
