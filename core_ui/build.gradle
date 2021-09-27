@@ -5,4 +5,6 @@ android {
 dependencies {
     api "androidx.appcompat:appcompat:$appcompat_version"
     api "com.google.android.material:material:$material_version"
+
+    api 'com.hannesdorfmann:adapterdelegates4-kotlin-dsl-viewbinding:4.3.0'
 }

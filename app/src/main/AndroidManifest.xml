@@ -12,17 +12,14 @@
         android:theme="@style/core_ui_AppTheme">
 
         <!-- activities -->
-        <activity android:name=".presentation.launch.LaunchActivity">
+        <activity
+            android:name=".LaunchActivity"
+            android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <activity android:name="com.dimchel.feature_competitions.presentation.CompetitionsActivity" />
-<!--        <activity android:name=".presentation.league.LeagueActivity" />-->
-<!--        <activity android:name=".presentation.club.ClubActivity" />-->
-
     </application>
-
 </manifest>

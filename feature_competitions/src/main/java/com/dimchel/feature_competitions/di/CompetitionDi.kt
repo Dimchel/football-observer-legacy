@@ -4,7 +4,7 @@ import android.content.Context
 import com.dimchel.core_network.di.CoreNetworkDependencyProvider
 import com.dimchel.feature_competitions.data.repositories.CompetitionRepository
 import com.dimchel.feature_competitions.data.repositories.CompetitionRepositoryImpl
-import com.dimchel.feature_competitions.presentation.CompetitionsActivity
+import com.dimchel.feature_competitions.presentation.CompetitionsFragment
 import dagger.*
 import javax.inject.Scope
 
@@ -27,7 +27,7 @@ interface CompetitionComponent : CompetitionDependencyProvider {
 		): CompetitionComponent
 	}
 
-	fun inject(competitionsActivity: CompetitionsActivity)
+	fun inject(competitionsFragment: CompetitionsFragment)
 }
 
 @Module

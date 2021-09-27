@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph_competitions"
+    app:startDestination="@id/competitionsFragment">
+
+    <fragment
+        android:id="@+id/competitionsFragment"
+        android:name="com.dimchel.feature_competitions.presentation.CompetitionsFragment">
+    </fragment>
+
+</navigation>
