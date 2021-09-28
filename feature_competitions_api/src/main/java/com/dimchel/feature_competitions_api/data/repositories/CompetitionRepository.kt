@@ -8,6 +8,6 @@ import com.dimchel.feature_competitions_api.data.models.LeagueModel
 interface CompetitionRepository : Repository {
 
     suspend fun getCompetitionsList(): DataResult<List<CompetitionModel>>
-    suspend fun getLeagueTable(competitionId: Long): DataResult<LeagueModel>
+    suspend fun getLeagueTable(competitionCode: String): DataResult<LeagueModel>
 
 }

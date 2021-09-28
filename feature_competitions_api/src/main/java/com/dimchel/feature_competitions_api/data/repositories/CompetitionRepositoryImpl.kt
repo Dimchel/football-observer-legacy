@@ -1,7 +1,9 @@
 package com.dimchel.feature_competitions_api.data.repositories
 
+import com.dimchel.core.flog
 import com.dimchel.core_architecture.data.DataResult
 import com.dimchel.core_architecture.data.mapSuccess
+import com.dimchel.core_network.ApiConstants
 import com.dimchel.core_network.providers.ApiServiceProvider
 import com.dimchel.feature_competitions_api.data.mappers.mapToModel
 import com.dimchel.feature_competitions_api.data.models.CompetitionModel
@@ -15,12 +17,18 @@ class CompetitionRepositoryImpl @Inject constructor(
 ) : CompetitionRepository {
 
     private var competitionsCashList: List<CompetitionModel> = ArrayList()
-    private var leagueMap: HashMap<Long, LeagueModel> = HashMap()
+    private var leagueMap: HashMap<String, LeagueModel> = HashMap()
 
     override suspend fun getCompetitionsList(): DataResult<List<CompetitionModel>> =
         if (competitionsCashList.isEmpty()) {
             apiProvider.fetchCompetitions().mapSuccess { schemes ->
-                val models = schemes.map { it.mapToModel() }
+                flog("schemes: " + schemes.size)
+                val models = schemes
+                    .filter { ApiConstants.AVAILABLE_COMPETITIONS.contains(it.code) }
+                    .map { it.mapToModel() }
+
+                flog("models: " + models.size)
+
                 competitionsCashList = models
                 models
             }
@@ -29,14 +37,14 @@ class CompetitionRepositoryImpl @Inject constructor(
         }
 
 
-    override suspend fun getLeagueTable(competitionId: Long): DataResult<LeagueModel> =
-        if (!leagueMap.containsKey(competitionId)) {
-            apiProvider.fetchLeague(competitionId).mapSuccess { scheme ->
+    override suspend fun getLeagueTable(competitionCode: String): DataResult<LeagueModel> =
+        if (!leagueMap.containsKey(competitionCode)) {
+            apiProvider.fetchLeague(competitionCode).mapSuccess { scheme ->
                 val model = scheme.mapToModel()
-                leagueMap[competitionId] = model
+                leagueMap[competitionCode] = model
                 model
             }
         } else {
-            DataResult.DataSuccess(leagueMap[competitionId]!!)
+            DataResult.DataSuccess(leagueMap[competitionCode]!!)
         }
 }

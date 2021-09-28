@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph_league"
+    app:startDestination="@id/leagueFragment">
+
+    <fragment
+        android:id="@+id/leagueFragment"
+        android:name="com.dimchel.feature_league.presentation.LeagueFragment">
+
+        <argument
+            android:name="leagueCode"
+            app:argType="string"/>
+
+        <deepLink
+            app:uri="app://fo.dimchel.app/league-fragment/{leagueCode}" />
+
+    </fragment>
+
+</navigation>

@@ -1,15 +1,15 @@
 package com.dimchel.feature_league.presentation.list
 
-import com.dimchel.feature_competitions_api.data.models.CompetitionerModel
+import com.dimchel.feature_competitions_api.data.models.CompetitorModel
 import com.hannesdorfmann.adapterdelegates4.ListDelegationAdapter
 
 sealed class LeagueListModel {
     object HeaderListModel : LeagueListModel()
-    class CompetitionerListModel(val model: CompetitionerModel) : LeagueListModel()
+    class CompetitorListModel(val model: CompetitorModel) : LeagueListModel()
 }
 
 class LeagueAdapter(
-    listener: (competitionModel: CompetitionerModel) -> Unit
+    listener: (competitionModel: CompetitorModel) -> Unit
 ) : ListDelegationAdapter<List<LeagueListModel>>() {
 
     init {

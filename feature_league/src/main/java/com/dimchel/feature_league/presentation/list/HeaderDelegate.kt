@@ -13,7 +13,7 @@ class HeaderDelegate: AbsListItemAdapterDelegate<HeaderListModel, LeagueListMode
         item: LeagueListModel,
         items: MutableList<LeagueListModel>,
         position: Int
-    ): Boolean = item is LeagueListModel.CompetitionerListModel
+    ): Boolean = item is HeaderListModel
 
     override fun onCreateViewHolder(parent: ViewGroup) = HeaderViewHolder(
         ItemLeagueBinding.inflate(LayoutInflater.from(parent.context), parent, false)

@@ -1,7 +1,6 @@
 fileTree("scripts").each { apply from: "$it" }
 
 android {
-
     defaultConfig {
         applicationId "com.dimchel.footballobserver"
 
@@ -11,7 +10,6 @@ android {
         minSdkVersion 21
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-
         vectorDrawables.useSupportLibrary = true
     }
 
@@ -29,4 +27,5 @@ dependencies {
     implementation project(':core_navigation')
 
     implementation project(':feature_competitions')
+    implementation project(':feature_league')
 }

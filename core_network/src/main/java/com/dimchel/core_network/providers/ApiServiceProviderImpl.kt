@@ -15,7 +15,7 @@ class ApiServiceProviderImpl @Inject constructor(
     override suspend fun fetchCompetitions(): DataResult<List<CompetitionScheme>> =
         getResponse { apiService.getCompetitionsList().competitions }
 
-    override suspend fun fetchLeague(competitionId: Long): DataResult<LeagueScheme> =
-        getResponse { apiService.getCompetitionsList(competitionId) }
+    override suspend fun fetchLeague(competitionCode: String): DataResult<LeagueScheme> =
+        getResponse { apiService.getLeague(competitionCode) }
 
 }

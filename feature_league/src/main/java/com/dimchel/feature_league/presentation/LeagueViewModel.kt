@@ -1,51 +1,44 @@
 package com.dimchel.feature_league.presentation
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.dimchel.core_architecture.data.ProgressData
+import com.dimchel.core_architecture.data.mapToProgressData
+import com.dimchel.feature_competitions_api.data.models.LeagueModel
 import com.dimchel.feature_competitions_api.data.repositories.CompetitionRepository
+import com.dimchel.feature_league.presentation.list.LeagueListModel
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class LeagueViewModel(
+class LeagueViewModel @Inject constructor(
     private val repo: CompetitionRepository,
 ) : ViewModel() {
 
-//    init {
-//        Application.instance.initCompetitionComponent().inject(this)
-//    }
-//
-//    override fun onFirstViewAttach() {
-//        super.onFirstViewAttach()
-//
-//        viewState.hideStandingList()
-//    }
-//
-//    override fun attachView(view: LeagueView?) {
-//        super.attachView(view)
-//
-//        repo.getLeagueTable(competitionId).subscribe(this)
-//    }
-//
-//    override fun onDestroy() {
-//        disposable?.dispose()
-//
-//        super.onDestroy()
-//    }
-//
-//    // ===========================================================
-//    // SingleObserver<LeagueModel>
-//    // ===========================================================
-//
-//    override fun onSuccess(model: com.dimchel.feature_competitions.repositories.models.LeagueModel) {
-//        viewState.updateTitleView(model.leagueCaption)
-//        viewState.updateMatchdayView(model.matchday)
-//
-//        viewState.showStandingList(model.standing)
-//    }
-//
-//    override fun onError(t: Throwable) {
-//
-//    }
-//
-//    override fun onSubscribe(d: Disposable) {
-//        disposable = d
-//    }
+    val leagueLiveData: MutableLiveData<ProgressData<List<LeagueListModel>>> = MutableLiveData()
 
+    private lateinit var leagueCode: String
+
+    fun onReceiveParams(leagueCode: String) {
+        this.leagueCode = leagueCode
+
+        loadData()
+    }
+
+    fun onRetryAction() = loadData()
+
+    private fun loadData() {
+        viewModelScope.launch {
+            leagueLiveData.value = ProgressData.Loading
+            leagueLiveData.value = repo.getLeagueTable(leagueCode).mapToProgressData {
+                generateContentList(it)
+            }
+        }
+    }
+
+    private fun generateContentList(leagueModel: LeagueModel): List<LeagueListModel> =
+        mutableListOf<LeagueListModel>().apply {
+            add(LeagueListModel.HeaderListModel)
+            addAll(leagueModel.standings.map { LeagueListModel.CompetitorListModel(it) })
+        }
 }

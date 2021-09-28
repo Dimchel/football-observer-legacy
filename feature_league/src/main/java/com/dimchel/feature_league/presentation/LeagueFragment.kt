@@ -2,8 +2,10 @@ package com.dimchel.feature_league.presentation
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.dimchel.core_architecture.data.ProgressData
 import com.dimchel.core_architecture.fragments.BaseFragment
 import com.dimchel.core_architecture.fragments.viewBinding
 import com.dimchel.core_architecture.viewmodels.ViewModelFactory
@@ -16,10 +18,6 @@ import com.dimchel.feature_league.presentation.list.LeagueAdapter
 import javax.inject.Inject
 
 class LeagueFragment : BaseFragment() {
-
-    companion object {
-        val BUNDLE_COMPETITION_ID = "CompetitionsActivity.BUNDLE_COMPETITION_ID"
-    }
 
     @Inject
     internal lateinit var viewModelFactory: ViewModelFactory<LeagueViewModel>
@@ -45,10 +43,14 @@ class LeagueFragment : BaseFragment() {
 
     private fun initViews() {
         initRecycler()
+
+        binding.leagueRetryButton.setOnClickListener {
+            viewModel.onRetryAction()
+        }
     }
 
     private fun initRecycler() {
-        binding.leagueLeagueRecyclerView.apply {
+        binding.leagueRecyclerView.apply {
             layoutManager = LinearLayoutManager(requireContext())
 
             addItemDecoration(DividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL))
@@ -60,5 +62,25 @@ class LeagueFragment : BaseFragment() {
 
     private fun initViewModel() {
         viewModel = viewModelFactory.getViewModel(this)
+
+        viewModel.onReceiveParams(requireArguments().getString("leagueCode")!!)
+
+        viewModel.leagueLiveData.observe(viewLifecycleOwner) {
+            binding.apply {
+                leagueRecyclerView.isVisible = false
+                leagueProgressBar.isVisible = false
+                leagueRetryButton.isVisible = false
+
+                when (it) {
+                    is ProgressData.Loading -> leagueProgressBar.isVisible = true
+                    is ProgressData.Error -> leagueRetryButton.isVisible = true
+                    is ProgressData.Success -> {
+                        adapter.setData(it.result)
+
+                        leagueRecyclerView.isVisible = true
+                    }
+                }
+            }
+        }
     }
 }

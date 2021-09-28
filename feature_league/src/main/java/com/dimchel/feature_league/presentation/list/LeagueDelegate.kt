@@ -3,39 +3,39 @@ package com.dimchel.feature_league.presentation.list
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.dimchel.feature_competitions_api.data.models.CompetitionerModel
+import com.dimchel.feature_competitions_api.data.models.CompetitorModel
 import com.dimchel.feature_league.databinding.ItemLeagueBinding
-import com.dimchel.feature_league.presentation.list.LeagueListModel.CompetitionerListModel
+import com.dimchel.feature_league.presentation.list.LeagueListModel.CompetitorListModel
 import com.hannesdorfmann.adapterdelegates4.AbsListItemAdapterDelegate
 
 class LeagueDelegate(
-    private val listener: (competitionModel: CompetitionerModel) -> Unit
-): AbsListItemAdapterDelegate<CompetitionerListModel, LeagueListModel, LeagueViewHolder>() {
+    private val listener: (competitionModel: CompetitorModel) -> Unit
+): AbsListItemAdapterDelegate<CompetitorListModel, LeagueListModel, LeagueViewHolder>() {
 
     override fun isForViewType(
         item: LeagueListModel,
         items: MutableList<LeagueListModel>,
         position: Int
-    ): Boolean = item is CompetitionerListModel
+    ): Boolean = item is CompetitorListModel
 
     override fun onCreateViewHolder(parent: ViewGroup) = LeagueViewHolder(
         ItemLeagueBinding.inflate(LayoutInflater.from(parent.context), parent, false)
     )
 
     override fun onBindViewHolder(
-        item: CompetitionerListModel,
+        item: CompetitorListModel,
         holder: LeagueViewHolder,
         payloads: MutableList<Any>
     ) {
         holder.binding.apply {
 //            itemCompetitionerIconImageview.setImageResource(iconManager.getImageResource(let { teamName }))
 
-            itemCompetitionerNameTextview.text = let { item.model.teamName }
+            itemCompetitionerNameTextview.text = let { item.model.team.name }
             itemCompetitionerPosTextview.text = (holder.adapterPosition).toString()
             itemCompetitionerPTextview.text = let { item.model.playedGames.toString() }
-            itemCompetitionerWTextview.text = let { item.model.wins.toString() }
-            itemCompetitionerDTextview.text = let { item.model.draws.toString() }
-            itemCompetitionerLTextview.text = let { item.model.losses.toString() }
+            itemCompetitionerWTextview.text = let { item.model.won.toString() }
+            itemCompetitionerDTextview.text = let { item.model.draw.toString() }
+            itemCompetitionerLTextview.text = let { item.model.lost.toString() }
             itemCompetitionerGdTextview.text = let { item.model.goalDifference.toString() }
             itemCompetitionerPtsTextview.text = let { item.model.points.toString() }
 

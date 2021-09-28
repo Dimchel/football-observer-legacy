@@ -11,3 +11,9 @@ fun <T> DataResult<T>.mapToProgressData(): ProgressData<T> =
         is DataResult.DataSuccess -> ProgressData.Success(result)
         is DataResult.DataError -> ProgressData.Error
     }
+
+fun <T, NEW> DataResult<T>.mapToProgressData(function: (T) -> NEW): ProgressData<NEW> =
+    when (this) {
+        is DataResult.DataSuccess -> ProgressData.Success(function(result))
+        is DataResult.DataError -> ProgressData.Error
+    }

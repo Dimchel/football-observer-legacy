@@ -8,6 +8,6 @@ import com.dimchel.core_network.schemes.responses.LeagueScheme
 interface ApiServiceProvider {
 
     suspend fun fetchCompetitions(): DataResult<List<CompetitionScheme>>
-    suspend fun fetchLeague(competitionId: Long): DataResult<LeagueScheme>
+    suspend fun fetchLeague(competitionCode: String): DataResult<LeagueScheme>
 
 }

@@ -1,13 +1,12 @@
 package com.dimchel.core_network.schemes.responses
 
+class CompetitionsScheme(
+    val competitions: List<CompetitionScheme>
+)
+
 class CompetitionScheme(
-    val id: Long,
+    val id: Int,
     val name: String,
-//    val league: String,
-//    val year: Int,
-//    val currentMatchday: Int,
-//    val numberOfMatchdays: Int,
-//    val numberOfTeams: Int,
-//    val numberOfGames: Int,
+    val code: String?,
     val lastUpdated: String
 )
