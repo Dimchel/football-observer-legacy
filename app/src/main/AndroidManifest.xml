@@ -13,7 +13,7 @@
 
         <!-- activities -->
         <activity
-            android:name=".LaunchActivity"
+            android:name=".presentation.LaunchActivity"
             android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

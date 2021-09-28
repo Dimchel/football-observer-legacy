@@ -1,6 +1,7 @@
 package com.dimchel.feature_league.di
 
 import android.content.Context
+import com.dimchel.core_image_loader.di.CoreImageLoaderDependencyProvider
 import com.dimchel.feature_competitions_api.di.CompetitionApiDependencyProvider
 import com.dimchel.feature_league.presentation.LeagueFragment
 import dagger.BindsInstance
@@ -13,7 +14,10 @@ annotation class LeagueScope
 
 @LeagueScope
 @Component(
-	dependencies = [CompetitionApiDependencyProvider::class],
+	dependencies = [
+		CoreImageLoaderDependencyProvider::class,
+		CompetitionApiDependencyProvider::class
+    ]
 )
 interface LeagueComponent : LeagueDependencyProvider {
 
@@ -21,6 +25,7 @@ interface LeagueComponent : LeagueDependencyProvider {
 	interface Factory {
 		fun create(
 			@BindsInstance appContext: Context,
+			coreImageLoaderDependencyProvider: CoreImageLoaderDependencyProvider,
 			competitionApiDependencyProvider: CompetitionApiDependencyProvider,
 		): LeagueComponent
 	}

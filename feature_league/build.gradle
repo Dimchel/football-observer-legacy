@@ -8,6 +8,7 @@ dependencies {
     implementation project(':core_ui')
     implementation project(':core_architecture')
     implementation project(':core_navigation')
+    implementation project(':core_image_loader')
 
     implementation project(':feature_competitions_api')
 

@@ -3,12 +3,14 @@ package com.dimchel.feature_league.presentation.list
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.dimchel.core_image_loader.image_loader.ImageLoaderProvider
 import com.dimchel.feature_competitions_api.data.models.CompetitorModel
 import com.dimchel.feature_league.databinding.ItemLeagueBinding
 import com.dimchel.feature_league.presentation.list.LeagueListModel.CompetitorListModel
 import com.hannesdorfmann.adapterdelegates4.AbsListItemAdapterDelegate
 
 class LeagueDelegate(
+    private val imageLoaderProvider: ImageLoaderProvider,
     private val listener: (competitionModel: CompetitorModel) -> Unit
 ): AbsListItemAdapterDelegate<CompetitorListModel, LeagueListModel, LeagueViewHolder>() {
 
@@ -28,8 +30,10 @@ class LeagueDelegate(
         payloads: MutableList<Any>
     ) {
         holder.binding.apply {
-//            itemCompetitionerIconImageview.setImageResource(iconManager.getImageResource(let { teamName }))
-
+            imageLoaderProvider.loadImage(
+                item.model.team.crestUrl,
+                itemCompetitionerIconImageview
+            )
             itemCompetitionerNameTextview.text = let { item.model.team.name }
             itemCompetitionerPosTextview.text = (holder.adapterPosition).toString()
             itemCompetitionerPTextview.text = let { item.model.playedGames.toString() }
@@ -38,22 +42,6 @@ class LeagueDelegate(
             itemCompetitionerLTextview.text = let { item.model.lost.toString() }
             itemCompetitionerGdTextview.text = let { item.model.goalDifference.toString() }
             itemCompetitionerPtsTextview.text = let { item.model.points.toString() }
-
-//            when {
-//                position == WINNER_POSITION -> {
-//                    holder.itemView.setBackgroundColor(ContextCompat.getColor(context, R.color.color_club_winner))
-//                }
-//                position <= CHAMPIONS_LEAGUE_MIN_POSITION -> {
-//                    holder.itemView.setBackgroundColor(ContextCompat.getColor(context, R.color.color_club_cl))
-//                }
-//                position <= EUROPE_CUP_MIN_POSITION -> {
-//                    holder.itemView.setBackgroundColor(ContextCompat.getColor(context, R.color.color_club_ec))
-//                }
-//                position >= LOSS_MIN_POSITION -> {
-//                    holder.itemView.setBackgroundColor(ContextCompat.getColor(context, R.color.color_club_winner))
-//                }
-//                else -> holder.itemView.setBackgroundColor(ContextCompat.getColor(context, R.color.color_background))
-//            }
 
             holder.itemView.setOnClickListener {
                 listener(item.model)

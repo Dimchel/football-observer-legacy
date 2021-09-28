@@ -10,6 +10,7 @@ import com.dimchel.core_architecture.fragments.BaseFragment
 import com.dimchel.core_architecture.fragments.viewBinding
 import com.dimchel.core_architecture.viewmodels.ViewModelFactory
 import com.dimchel.core_architecture.viewmodels.getViewModel
+import com.dimchel.core_image_loader.image_loader.ImageLoaderProvider
 import com.dimchel.feature_league.R
 import com.dimchel.feature_league.databinding.FragmentLeagueBinding
 import com.dimchel.feature_league.di.LeagueComponent
@@ -18,6 +19,9 @@ import com.dimchel.feature_league.presentation.list.LeagueAdapter
 import javax.inject.Inject
 
 class LeagueFragment : BaseFragment() {
+
+    @Inject
+    lateinit var imageLoaderProvider: ImageLoaderProvider
 
     @Inject
     internal lateinit var viewModelFactory: ViewModelFactory<LeagueViewModel>
@@ -55,7 +59,7 @@ class LeagueFragment : BaseFragment() {
 
             addItemDecoration(DividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL))
 
-            this@LeagueFragment.adapter = LeagueAdapter { }
+            this@LeagueFragment.adapter = LeagueAdapter(imageLoaderProvider) { }
             adapter = this@LeagueFragment.adapter
         }
     }

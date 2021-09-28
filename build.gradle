@@ -9,7 +9,7 @@ buildscript {
         lifecycle_version = '2.3.1'
         navigation_version = '2.3.5'
 
-        dagger_version = '2.37'
+        dagger_version = '2.38.1'
         retrofit_version = '2.6.1'
         okhttp_version = '3.12.0'
     }

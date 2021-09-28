@@ -1,7 +1,8 @@
-package com.dimchel.footballobserver
+package com.dimchel.footballobserver.presentation
 
 import android.os.Bundle
 import androidx.fragment.app.FragmentActivity
+import com.dimchel.footballobserver.R
 
 class LaunchActivity : FragmentActivity() {
 
