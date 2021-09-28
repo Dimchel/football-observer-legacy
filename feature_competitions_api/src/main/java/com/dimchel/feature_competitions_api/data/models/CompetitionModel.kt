@@ -1,4 +1,4 @@
-package com.dimchel.feature_competitions.data.repositories.models
+package com.dimchel.feature_competitions_api.data.models
 
 class CompetitionModel(
     val id: Long,

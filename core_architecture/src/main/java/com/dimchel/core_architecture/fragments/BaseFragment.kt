@@ -27,7 +27,6 @@ abstract class BaseFragment: Fragment() {
         savedInstanceState: Bundle?,
     ): View? = inflater.inflate(getLayoutResId(), container, false)
 
-
     override fun onDestroy() {
         if (isFragmentRemoving(this)) {
             releaseDependencies()

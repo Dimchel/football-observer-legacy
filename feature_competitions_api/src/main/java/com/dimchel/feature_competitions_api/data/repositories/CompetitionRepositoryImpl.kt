@@ -1,15 +1,15 @@
-package com.dimchel.feature_competitions.data.repositories
+package com.dimchel.feature_competitions_api.data.repositories
 
 import com.dimchel.core_architecture.data.DataResult
 import com.dimchel.core_architecture.data.mapSuccess
 import com.dimchel.core_network.providers.ApiServiceProvider
-import com.dimchel.feature_competitions.data.repositories.mappers.mapToModel
-import com.dimchel.feature_competitions.data.repositories.models.CompetitionModel
-import com.dimchel.feature_competitions.data.repositories.models.LeagueModel
-import com.dimchel.feature_competitions.di.CompetitionScope
+import com.dimchel.feature_competitions_api.data.mappers.mapToModel
+import com.dimchel.feature_competitions_api.data.models.CompetitionModel
+import com.dimchel.feature_competitions_api.data.models.LeagueModel
+import com.dimchel.feature_competitions_api.di.CompetitionApiScope
 import javax.inject.Inject
 
-@CompetitionScope
+@CompetitionApiScope
 class CompetitionRepositoryImpl @Inject constructor(
     private val apiProvider: ApiServiceProvider
 ) : CompetitionRepository {

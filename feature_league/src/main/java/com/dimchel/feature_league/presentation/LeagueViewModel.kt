@@ -1,15 +1,12 @@
 package com.dimchel.feature_league.presentation
 
-//@InjectViewState
-//class LeaguePresenter(private val competitionId: Long) :
-//        MvpPresenter<LeagueView>(),
-//        SingleObserver<com.dimchel.feature_competitions.repositories.models.LeagueModel> {
-//
-//    private var disposable: Disposable? = null
-//
-//    @Inject
-//    lateinit var repo: com.dimchel.feature_competitions.repositories.CompetitionRepository
-//
+import androidx.lifecycle.ViewModel
+import com.dimchel.feature_competitions_api.data.repositories.CompetitionRepository
+
+class LeagueViewModel(
+    private val repo: CompetitionRepository,
+) : ViewModel() {
+
 //    init {
 //        Application.instance.initCompetitionComponent().inject(this)
 //    }
@@ -50,5 +47,5 @@ package com.dimchel.feature_league.presentation
 //    override fun onSubscribe(d: Disposable) {
 //        disposable = d
 //    }
-//
-//}
+
+}

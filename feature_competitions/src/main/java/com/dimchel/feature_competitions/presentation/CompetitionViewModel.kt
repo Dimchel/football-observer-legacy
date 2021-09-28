@@ -5,8 +5,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.dimchel.core_architecture.data.ProgressData
 import com.dimchel.core_architecture.data.mapToProgressData
-import com.dimchel.feature_competitions.data.repositories.CompetitionRepository
-import com.dimchel.feature_competitions.data.repositories.models.CompetitionModel
+import com.dimchel.feature_competitions_api.data.models.CompetitionModel
+import com.dimchel.feature_competitions_api.data.repositories.CompetitionRepository
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 

@@ -3,8 +3,8 @@ package com.dimchel.feature_competitions.presentation
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.dimchel.feature_competitions.data.repositories.models.CompetitionModel
 import com.dimchel.feature_competitions.databinding.ItemCompetitionsBinding
+import com.dimchel.feature_competitions_api.data.models.CompetitionModel
 import com.hannesdorfmann.adapterdelegates4.AbsListItemAdapterDelegate
 import com.hannesdorfmann.adapterdelegates4.ListDelegationAdapter
 

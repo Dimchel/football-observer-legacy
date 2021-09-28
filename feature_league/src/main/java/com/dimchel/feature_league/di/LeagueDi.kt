@@ -1,7 +1,10 @@
 package com.dimchel.feature_league.di
 
 import android.content.Context
-import dagger.*
+import com.dimchel.feature_competitions_api.di.CompetitionApiDependencyProvider
+import com.dimchel.feature_league.presentation.LeagueFragment
+import dagger.BindsInstance
+import dagger.Component
 import javax.inject.Scope
 
 @Scope
@@ -9,18 +12,19 @@ import javax.inject.Scope
 annotation class LeagueScope
 
 @LeagueScope
-@Component(modules = [(LeagueModule::class)])
+@Component(
+	dependencies = [CompetitionApiDependencyProvider::class],
+)
 interface LeagueComponent : LeagueDependencyProvider {
 
-	@Component.Builder
-	interface Builder {
-
-		@BindsInstance
-		fun appContext(appContext: Context): Builder
-
-		fun build(): LeagueComponent
+	@Component.Factory
+	interface Factory {
+		fun create(
+			@BindsInstance appContext: Context,
+			competitionApiDependencyProvider: CompetitionApiDependencyProvider,
+		): LeagueComponent
 	}
-}
 
-@Module
-abstract class LeagueModule
+	fun inject(fragment: LeagueFragment)
+
+}
