@@ -3,6 +3,7 @@ package com.dimchel.feature_league.presentation
 import android.os.Bundle
 import android.view.View
 import androidx.core.view.isVisible
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dimchel.core_architecture.data.ProgressData
@@ -59,7 +60,9 @@ class LeagueFragment : BaseFragment() {
 
             addItemDecoration(DividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL))
 
-            this@LeagueFragment.adapter = LeagueAdapter(imageLoaderProvider) { }
+            this@LeagueFragment.adapter = LeagueAdapter(imageLoaderProvider) {
+                findNavController().navigate(LeagueFragmentDirections.actionLeagueFragmentToTestFragment())
+            }
             adapter = this@LeagueFragment.adapter
         }
     }
