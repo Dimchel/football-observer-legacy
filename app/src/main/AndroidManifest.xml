@@ -13,7 +13,7 @@
 
         <!-- activities -->
         <activity
-            android:name=".presentation.LaunchActivity"
+            android:name="com.dimchel.core_navigation.LaunchActivity"
             android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
