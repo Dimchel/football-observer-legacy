@@ -7,6 +7,17 @@
     <fragment
         android:id="@+id/competitionsFragment"
         android:name="com.dimchel.feature_competitions.presentation.CompetitionsFragment">
+
+        <action
+            android:id="@+id/actionToFlowLeague"
+            app:destination="@id/flow_league">
+
+            <argument
+                android:name="leagueCode"
+                app:argType="string"/>
+
+        </action>
+
     </fragment>
 
 </navigation>

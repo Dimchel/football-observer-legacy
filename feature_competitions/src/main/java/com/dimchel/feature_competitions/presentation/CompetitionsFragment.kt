@@ -1,6 +1,5 @@
 package com.dimchel.feature_competitions.presentation
 
-import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import androidx.core.view.isVisible
@@ -58,8 +57,7 @@ class CompetitionsFragment : BaseFragment() {
             this@CompetitionsFragment.adapter = CompetitionsAdapter {
                 viewModel.onCompetitionSelected(it)
 
-                val url = "app://fo.dimchel.app/league-fragment/"
-                findNavController().navigate(Uri.parse(url + it.code.toString()))
+                findNavController().navigate(CompetitionsFragmentDirections.actionToFlowLeague(it.code.toString()))
             }
             adapter = this@CompetitionsFragment.adapter
         }
